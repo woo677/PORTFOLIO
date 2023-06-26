@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>웹 연습</title>
+    </head>
+    <body>
+        <div style="display: flex;">
+            <div>
+                <h1>시간여행을 행한다</h1>   <!--글의 제목이나 강조를 위해 사용 h1~h6까지 있다-->
+                <strong>테스트입니다</strong>   <!--글자 강조-->
+                <p>이거는 테스트입니다 여기서 하는 <br>모든 것 들은 전부 허구 입니다<br>다시한번 설명합니다 여기서 하는 
+                    <b>뭐든</b> 말은 다 허구 이며 진실이 이닙니다</p><!--p는 일반 텍스트 입력 br줄바꿈 b강조-->
+
+                <input type="text" style="width: 500px; height: 100px; font-size: 50px;">  <!--입력창-->
+
+                <div>  <!--여러개의 태그를 묶거나 나눌때 사용-->
+                    <button style="width: 250px; height: 100px; font-size: 50px;">버튼</button> <!--버튼-->
+                </div>
+                <div>
+                    <button style="width: 250px; height: 100px; font-size: 50px;">버튼</button>     
+                </div>
+                <div>
+                    <a href="https://www.youtube.com/watch?v=rgI930gqdaY" style="font-size: 30px;">html 강좌</a><br>
+                    <a href="https://www.naver.com" style="font-size: 30px;">네이버로 가기</a> <!--사이트 연결-->
+                </div>
+            </div>
+            <div>
+                <h1>두 번째 블록</h1>
+                <img src="../이미지/웹.jpg " width="300px" alt="이미지 오류">
+                <img src="../웹.jpg" width="300">
+                <ol> <!--숫자-->
+                    <li>아나</li>
+                    <li>아구</li>
+                    <li>아노</li>
+                    <li>아가</li>
+                </ol>
+                <ul> <!-- . -->
+                    <li>아나</li>
+                    <li>아구</li>
+                    <li>아노</li>
+                    <li>아가</li>
+                </ul>
+                <table style="width: 300px; height: 200px;"> <!--주로 표를 만들때 쓰임-->
+                    <caption>테이블 이름</caption> <!--table 재목-->
+                    <tr> <!--한 행을 의미함-->
+                        <th>이름</th> <!--테이블 헤더 (제목)-->
+                        <th>나이</th>
+                        <th>지역</th>
+                    </tr>
+                    <tr>
+                        <td>펄루</td> <!--테이블 내용-->
+                        <td>12</td>
+                        <td>경산</td>
+                    </tr>
+                    <tr>
+                        <td>아흐</td>
+                        <td>53</td>
+                        <td>김산</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h1>세 번째 블럭</h1>
+                <form>  <!--회원가입이나 로그인 같은 특정 정보들을 묶어 하나의 폼으로 채출할때 씀-->
+                    <input type="text" style="font-size: 30px;"> <!--input type은 어떤 정보를 입력 받을 지 결정-->
+                    <input type="email" style="font-size: 30px;">
+                    <input type="password" style="font-size: 30px;">
+                    <input type="date" style="font-size: 30px;"><br>
+                    <input type="checkbox" style="font-size: 30px;">체크박스<br>
+                    <select name="커피" style="font-size: 30px;"> <!--항목 선택을 위한 태그-->
+                        <option value="1">아메리카노</option>   <!--select name="이름" , option value="값"-->
+                        <option value="2">카페라떼</option>
+                        <option value="3">에스프레소</option>
+                    </select>
+                    <div>
+                    <button type="submit" style="font-size: 30px;">확인</button>
+                    <!--form안에서 자료를 제출할려면 버튼의 타입을 submit로한다-->
+                    </div>
+                </form>
+            </div>
+        </div>    
+    </body>
+</html>
