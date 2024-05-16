@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.back.teammate.dao.TeammateDAO">
+	<!-- list 출력 -->
+	<select id="list" resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		LIMIT #{param1}, 10
+	</select>
+
+	<!-- 레벨 필터 list 출력 -->
+	<select id="listFilterLevel"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		AND tj.join_team_level LIKE CONCAT('%', #{param2}, '%')
+		LIMIT #{param1}, 10
+	</select>
+
+	<!-- 포지션 필터 list 출력 -->
+	<select id="listFilterPosition"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		AND tj.join_team_position LIKE CONCAT('%', #{param2}, '%')
+		LIMIT #{param1}, 10
+	</select>
+
+	<!-- 포지션,레벨 필터 list 출력 -->
+	<select id="listFilterPosotionLevel"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		AND tj.join_team_position LIKE CONCAT(#{param2})
+		AND tj.join_team_level LIKE CONCAT(#{param3})
+		LIMIT #{param1}, 10
+	</select>
+
+	<!-- 주소 필터 list 출력 -->
+	<select id="listFilterAddress"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		AND t.team_address LIKE CONCAT('%', #{param2}, '%')
+		LIMIT #{param1}, 10
+	</select>
+
+	<!-- 주소,레벨 필터 list 출력 -->
+	<select id="listFilterAddressLevel"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		AND t.team_address LIKE CONCAT('%', #{param2}, '%')
+		AND tj.join_team_level LIKE CONCAT(#{param3})
+		LIMIT #{param1}, 10
+	</select>
+
+	<!-- 주소,포지션 필터 list 출력 -->
+	<select id="listFilterAddressPosition"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		AND t.team_address LIKE CONCAT('%', #{param2}, '%')
+		AND tj.join_team_position LIKE CONCAT(#{param3})
+		LIMIT #{param1}, 10
+	</select>
+
+	<!-- 주소,포지션,레벨 필터 list 출력 -->
+	<select id="listFilterAddressPositionLevel"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		AND t.team_address LIKE CONCAT('%', #{param2}, '%')
+		AND tj.join_team_position LIKE CONCAT(#{param3})
+		AND tj.join_team_level LIKE CONCAT(#{param4})
+		LIMIT #{param1}, 10
+	</select>
+
+	<!-- allList 출력 -->
+	<select id="allList"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+	</select>
+
+	<!-- 토탈 페이지 수 -->
+	<select id="allTeammateCount" resultType="int">
+		SELECT CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join
+	</select>
+
+	<!-- 레벨 필터 후 토탈 페이지 수 -->
+	<select id="levelFilteringTeammateCount" resultType="int">
+		SELECT
+		CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join tj
+		JOIN team t
+		ON t.team_idx = tj.team_idx
+		WHERE
+		tj.join_team_level LIKE CONCAT('%', #{param1}, '%')
+	</select>
+
+	<!-- 포지션 필터 후 토탈 페이지 수 -->
+	<select id="positionFilteringTeammateCount" resultType="int">
+		SELECT
+		CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join tj
+		JOIN team t
+		ON t.team_idx = tj.team_idx
+		WHERE
+		tj.join_team_position LIKE CONCAT('%', #{param1}, '%')
+	</select>
+
+	<!-- 포지션, 레벨 필터 후 토탈 페이지 수 -->
+	<select id="positionLevelFilteringTeammateCount"
+		resultType="int">
+		SELECT CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join tj
+		JOIN team t
+		ON t.team_idx = tj.team_idx
+		WHERE
+		tj.join_team_position LIKE CONCAT('%', #{param1}, '%')
+		AND
+		tj.join_team_level LIKE CONCAT('%', #{param2}, '%')
+	</select>
+
+	<!--지역 필터 후 토탈 페이지 수 -->
+	<select id="addressFilteringTeammateCount" resultType="int">
+		SELECT
+		CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join tj
+		JOIN team t
+		ON t.team_idx = tj.team_idx
+		WHERE
+		t.team_address LIKE CONCAT('%', #{param1}, '%')
+	</select>
+
+	<!--지역,레벨 필터 후 토탈 페이지 수 -->
+	<select id="addressLevelFilteringTeammateCount" resultType="int">
+		SELECT CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join tj
+		JOIN team t
+		ON t.team_idx = tj.team_idx
+		WHERE
+		t.team_address LIKE CONCAT('%', #{param1}, '%')
+		AND tj.join_team_level
+		LIKE CONCAT('%', #{param2}, '%')
+	</select>
+
+	<!--지역,포지션 필터 후 토탈 페이지 수 -->
+	<select id="addressPositionFilteringTeammateCount"
+		resultType="int">
+		SELECT CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join tj
+		JOIN team t
+		ON t.team_idx = tj.team_idx
+		WHERE
+		t.team_address LIKE CONCAT('%', #{param1}, '%')
+		AND
+		tj.join_team_position LIKE CONCAT('%', #{param2}, '%')
+	</select>
+
+	<!--지역,포지션,레벨 모든 필터 후 토탈 페이지 수 -->
+	<select id="allFilteringTeammateCount" resultType="int">
+		SELECT
+		CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join tj
+		JOIN team t
+		ON t.team_idx = tj.team_idx
+		WHERE
+		t.team_address LIKE CONCAT('%', #{param1}, '%')
+		AND
+		tj.join_team_position LIKE CONCAT('%', #{param2}, '%')
+		AND
+		tj.join_team_level LIKE CONCAT('%', #{param3}, '%')
+	</select>
+
+	<!-- 팀 활동지역 검색 list 출력 -->
+	<select id="addressSearchList"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		AND t.team_address LIKE CONCAT('%', #{param1}, '%')
+		LIMIT #{param2}, 10
+	</select>
+
+	<!-- 팀명 검색 list 출력 -->
+	<select id="teamnameSearchList"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		AND t.team_name LIKE CONCAT('%', #{param1}, '%')
+		LIMIT #{param2}, 10
+	</select>
+
+	<!-- 팀장명 검색 list 출력 -->
+	<select id="representSearchList"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		tj.join_team_idx
+		,t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_position
+		,tj.join_team_level
+		FROM team t, team_join tj
+		WHERE t.team_idx = tj.team_idx
+		AND t.id LIKE CONCAT('%', #{param1}, '%')
+		LIMIT #{param2}, 10
+	</select>
+
+	<!-- 팀 활동지역 검색 후 토탈 페이지 출력 -->
+	<select id="addressFilteringCount" resultType="int">
+		SELECT
+		CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join tj
+		JOIN team t
+		ON t.team_idx = tj.team_idx
+		WHERE t.team_address LIKE CONCAT('%', #{param1}, '%')
+	</select>
+
+	<!-- 팀명 검색 후 토탈 페이지 출력 -->
+	<select id="teamnameFilteringCount" resultType="int">
+		SELECT
+		CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join tj
+		JOIN team t
+		ON t.team_idx = tj.team_idx
+		WHERE t.team_name LIKE CONCAT('%', #{param1}, '%')
+	</select>
+
+	<!-- 팀장명 검색 후 토탈 페이지 출력 -->
+	<select id="representFilteringCount" resultType="int">
+		SELECT
+		CEIL(COUNT(join_team_idx)/10) AS totalPage
+		FROM team_join tj
+		JOIN team t
+		ON t.team_idx = tj.team_idx
+		WHERE t.id LIKE CONCAT('%', #{param1}, '%')
+	</select>
+
+	<select id="teammateDetail"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		t.logo
+		,t.team_name
+		,t.id
+		,t.team_address
+		,tj.join_team_level
+		,tj.join_team_gender
+		,tj.join_team_position
+		,tj.join_team_content
+		FROM team t
+		JOIN team_join tj
+		ON t.team_idx = tj.team_idx
+		WHERE
+		tj.join_team_idx = #{param1}
+	</select>
+
+	<insert id="teammateJoin" parameterType="String">
+		INSERT INTO
+		team_join_list(id, join_team_idx, join_state)
+		VALUES(#{param2},#{param1},#{param3})
+	</insert>
+
+	<select id="duplicateChk" resultType="int">
+		SELECT count(tjl.id) 
+			FROM team_join_list tjl
+			WHERE join_team_idx = #{param1} 
+			AND tjl.id = #{param2}
+			and tjl.join_state = '대기중' or tjl.join_state = '수락'
+		<!-- SELECT count(id) FROM team_join_list WHERE join_team_idx = #{param1} 
+			AND id = #{param2} AND (join_state = '수락' OR join_state = '대기중') -->
+	</select>
+
+	<select id="callMyteamInfo" resultType="java.lang.Integer">
+		SELECT team_idx from team
+		where id = #{param1} limit 1;
+	</select>
+
+	<select id="teammateWriteInfo"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT team_name, team_address, team_info from team where
+		team_idx = #{param1};
+	</select>
+
+	<insert id="teammateWrite" useGeneratedKeys="true"
+		keyColumn="join_team_idx" keyProperty="join_team_idx"
+		parameterType="com.back.teammate.dto.TeammateDTO">
+		INSERT INTO team_join(
+		team_idx
+		,join_team_to
+		,join_team_content
+		,join_team_level
+		,join_team_gender
+		,join_team_position
+		,join_team_state
+		)VALUES(
+		#{team_idx}
+		,10
+		,#{join_team_content}
+		,#{join_team_level}
+		,#{join_team_gender}
+		,#{join_team_position}
+		,'true')
+	</insert>
+
+	<!-- 수정 페이지 불러오기 -->
+	<select id="teammateModify"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT tj.join_team_idx
+		,tj.join_team_content
+		,tj.join_team_gender
+		,tj.join_team_level
+		,tj.join_team_position
+		,t.team_name
+		,t.team_address
+		,t.team_info FROM team_join tj
+		JOIN team t ON tj.team_idx =t.team_idx WHERE tj.join_team_idx = #{param1}
+	</select>
+
+	<!-- 수정 업데이트 -->
+	<update id="writeUpdate" parameterType="Object">
+		UPDATE team_join SET
+		join_team_content = #{param1}
+		,join_team_level = #{param3}
+		,join_team_gender = #{param2}
+		,join_team_position = #{param4}
+		WHERE join_team_idx = #{param5}
+	</update>
+	<select id="modifyDetail"
+		resultType="com.back.teammate.dto.TeammateDTO">
+		SELECT
+		t.team_name
+		,t.team_address
+		,t.team_info
+		FROM team t
+		JOIN team_join tj
+		ON tj.team_idx = t.team_idx
+		WHERE tj.join_team_idx = #{param1}
+	</select>
+
+	<select id="teamName" resultType="string">
+		SELECT t.team_name
+		FROM team t
+		JOIN team_join tj ON t.team_idx = tj.team_idx
+		JOIN team_join_list tjl ON tj.join_team_idx = tjl.join_team_idx
+		WHERE tjl.join_team_idx = #{param1} LIMIT 1
+	</select>
+
+	<insert id="sendNotice">
+		INSERT INTO notice (id, notice_content)
+		VALUES(#{param2}, #{param1})
+	</insert>
+	
+	<select id="teamId" resultType="string">
+		SELECT 
+		 id
+		 FROM team t 
+		 JOIN team_join tj 
+		 ON t.team_idx = tj.team_idx
+		WHERE tj.join_team_idx = #{param1}
+	</select>
+
+</mapper>

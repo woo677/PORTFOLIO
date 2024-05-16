@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.back.admin.dao.AdminWriteDAO">
+
+	<select id="callCourtList" resultType="com.back.admin.dto.AdminCourtDTO">
+	
+		SELECT
+			court_name AS courtName
+			,court_address AS courtAddress
+			,court_idx AS courtIdx
+		FROM court 
+		WHERE court_state = 'true'
+		AND court_official = 'true'
+		
+	</select>
+	
+	<!-- match_list -->
+	
+	<!-- list -->
+	<select id="officialList" resultType="com.back.admin.dto.AdminWriteDTO">
+		SELECT
+		   	official_match_idx
+		  	,official_match_date
+		  	,(SELECT court_address FROM court c WHERE c.court_idx = o.court_idx) AS court_address
+		  	,official_match_level
+		  	,(SELECT count(official_match_idx) FROM offcial_match_ask_list f 
+		  	WHERE f.official_match_idx = o.official_match_idx) AS currentCount
+		  	,official_match_to
+		  	,official_match_post_state
+			FROM official_match o
+			JOIN court t
+			ON o.court_idx = t.court_idx
+		WHERE t.court_state = 'true'
+	</select>	
+	
+	<select id="callCourtInfo" resultType="com.back.admin.dto.AdminCourtDTO">
+		SELECT
+			court_name AS courtName
+			,court_address AS courtAddress
+			,court_idx AS courtIdx
+		FROM court
+		WHERE court_idx = #{param1}
+	</select>
+	
+	<select id="fileNameList" resultType="String">
+		SELECT
+			file_name
+		FROM court_image
+		WHERE court_idx = #{param1}
+	</select>
+	
+	<select id="bookingStartTime" resultType="String">
+		SELECT official_match_start_time   
+		from official_match  
+		WHERE court_idx = #{param1}
+		AND official_match_date = #{param2}
+
+	</select>
+	
+	<insert id="officialWrite">
+		INSERT INTO 
+		official_match(
+			court_idx
+			,official_match_gender
+			,official_match_level
+			,official_match_to
+			,official_match_to_state
+			,official_match_info
+			,official_match_fee
+			,official_match_date
+			,official_match_start_time
+			,official_match_end_time
+			,official_match_state
+			,official_match_post_state
+		)
+		VALUES(
+			#{courtIdx}
+			,#{officialGender}
+			,#{officialLevel}
+			,#{officialTO}
+			,'모집중'
+			,#{officialInfo}
+			,#{officialPrice}
+			,#{officialDate}
+			,#{officialStartTime}
+			,#{officialEndTime}
+			,#{officialIsDisabled}
+			,'true'
+		)
+	</insert>
+	
+	<select id="officialUpdateGo" resultType="com.back.admin.dto.AdminWriteDTO">
+		SELECT 
+			official_match_idx AS officialIdx
+			,court_idx AS courtIdx
+			,official_match_gender AS officialGender
+			,official_match_level AS officialLevel
+			,official_match_to AS officialTO
+			,official_match_to_state AS officialTOState
+			,official_match_info AS officialInfo
+			,official_match_fee AS officialPrice
+			,official_match_date AS officialDate
+			,official_match_start_time AS officialStartTime
+			,official_match_end_time AS officialEndTime
+			,official_match_state AS officialMatchState
+			,official_match_post_state AS officialState
+		FROM official_match
+		WHERE official_match_idx = #{param1}
+	</select>
+	
+	<update id="officialUpdate" parameterType="map">
+	UPDATE official_match
+	SET court_idx = #{courtIdx}
+		,official_match_gender = #{officialGender}
+		,official_match_level = #{officialLevel}
+		,official_match_to = #{officialTO}
+		,official_match_info = #{officialInfo}
+		,official_match_fee = #{officialPrice}
+		,official_match_date = #{officialDate}
+		,official_match_start_time = #{officialStartTime}
+		,official_match_end_time = #{officialEndTime}
+		,official_match_post_state = #{officialState}
+	WHERE official_match_idx = #{officialIdx}
+	</update>
+	
+	<select id="teamList" resultType="com.back.admin.dto.AdminWriteDTO">
+		SELECT 
+			join_team_idx 
+			,logo
+			,team_name
+			,id
+			,join_team_state
+			FROM team_join tj
+			JOIN team t
+			WHERE tj.team_idx = t.team_idx
+		<choose>
+			<when test='searchFlag == "true" and searchCategory == "teamName"'>
+				AND team_name like CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='searchFlag == "true" and searchCategory == "teamLeaderName"'>
+				AND id like CONCAT('%', #{searchWord},'%')
+			</when>
+			<when test='address != ""'>
+				AND team_address like CONCAT('%', #{address}, '%')
+			</when>
+		</choose>
+		LIMIT #{start}, 10
+
+	</select>	
+	
+	<select id="addressList" resultType="String">
+		SELECT team_address
+				FROM team 
+				GROUP BY SUBSTRING_INDEX(team_address, ' ', 2)
+	</select>	
+	
+	<select id="totalPage" resultType="int">
+		SELECT COUNT(tj.join_team_idx)
+			FROM team_join tj
+			JOIN team t 
+			WHERE tj.team_idx = t.team_idx
+		<choose>
+			<when test='searchFlag == "true" and searchCategory == "teamName"'>
+				AND team_name like CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='searchFlag == "true" and searchCategory == "teamLeaderName"'>
+				AND id like CONCAT('%', #{searchWord},'%')
+			</when>
+			<when test='address != ""'>
+				AND team_address like CONCAT('%', #{address}, '%')
+			</when>
+		</choose>
+	</select>	
+	
+	<select id="guestList" resultType="com.back.admin.dto.AdminWriteDTO">
+		SELECT 
+			gj.guest_idx 
+			,gj.guest_level 
+			,gj.guest_gender 
+			,gj.guest_position 
+			,c.court_address 
+			,c.court_name 
+			,cb.booking_date 
+			,(SELECT COUNT(guest_idx) 
+			FROM guest_join_list gjl 
+			WHERE gjl.guest_idx = gj.guest_idx) AS currentCount
+			,gj.guest_to 
+			,t.logo 
+			,gj.guest_state 
+			FROM guest_join gj 
+			JOIN court_booking cb 
+			ON gj.court_booking_idx = cb.court_booking_idx
+			JOIN court c
+			ON cb.court_idx = c.court_idx
+			JOIN team t 
+			WHERE gj.team_idx = t.team_idx
+		<choose>
+			<when test='searchFlag == "true" and searchCategory == "courtName"'>
+				AND c.court_name like CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='searchFlag == "true" and searchCategory == "teamName"'>
+				AND t.team_name like CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='address != ""'>
+				AND c.court_address like CONCAT('%', #{address}, '%')
+			</when>
+			<when test='level != ""'>
+				AND gj.guest_level like CONCAT('%', #{level}, '%')
+			</when>
+			<when test='gender != ""'>
+				AND gj.guest_gender like CONCAT('%', #{gender}, '%')
+			</when>
+			<when test='position != ""'>
+				AND gj.guest_position like CONCAT('%', #{position}, '%')
+			</when>
+		</choose>
+		LIMIT #{start}, 10
+
+	</select>		
+	
+	<select id="addressListGuest" resultType="String">
+		SELECT SUBSTRING_INDEX(court_address, ' ', 2)
+				FROM court
+				GROUP BY SUBSTRING_INDEX(court_address, ' ', 2)
+	</select>
+	
+	<select id="totalPageGuest" resultType="int">
+		SELECT COUNT(gj.guest_idx)
+			FROM guest_join gj
+			JOIN court_booking cb 
+			ON gj.court_booking_idx = cb.court_booking_idx
+			JOIN court c
+			ON cb.court_idx = c.court_idx
+			JOIN team t
+			WHERE gj.team_idx = t.team_idx
+		<choose>
+			<when test='searchFlag == "true" and searchCategory == "courtName"'>
+				AND c.court_name like CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='searchFlag == "true" and searchCategory == "teamName"'>
+				AND t.team_name like CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='address != ""'>
+				AND c.court_address like CONCAT('%', #{address}, '%')
+			</when>
+			<when test='level != ""'>
+				AND gj.guest_level like CONCAT('%', #{level}, '%')
+			</when>
+			<when test='gender != ""'>
+				AND gj.guest_gender like CONCAT('%', #{gender}, '%')
+			</when>
+			<when test='position != ""'>
+				AND gj.guest_position like CONCAT('%', #{position}, '%')
+			</when>
+		</choose>
+	</select>		
+	
+	<!-- 게스트 모집글 수정 이동 -->
+	<select id="guestUpdateGo" resultType="com.back.admin.dto.AdminWriteDTO">
+		SELECT 
+			guest_idx 
+			,cb.court_booking_idx
+			,c.court_idx 
+			,gj.guest_gender 
+			,gj.guest_level 
+			,gj.guest_to
+			,gj.guest_state 
+			,gj.guest_info 
+			,gj.guest_fee 
+			,cb.booking_date 
+			,cb.booking_start_time 
+			,cb.booking_end_time 
+			FROM guest_join gj
+			JOIN court_booking cb 
+			ON gj.court_booking_idx = cb.court_booking_idx
+			JOIN court c
+			ON cb.court_idx = c.court_idx
+			WHERE guest_idx = #{param1}
+	</select>	
+	
+	<!-- 게스트 모집글 - 코트 리스트 부르기 -->
+	<select id="callGuestCourtList" resultType="com.back.admin.dto.AdminCourtDTO">
+		SELECT 
+			c.court_name AS courtName
+			,c.court_address AS courtAddress
+			,c.court_idx AS courtIdx
+			FROM court c 
+			JOIN court_booking cb
+			ON c.court_idx = cb.court_idx 
+			JOIN guest_join gj 
+			ON cb.court_booking_idx = gj.court_booking_idx
+	</select>	
+	
+	<!-- 게스트 모집글 - 코트 리스트 정보 -->
+	<select id="callGuestCourtInfo" resultType="com.back.admin.dto.AdminCourtDTO">
+		SELECT
+			court_name AS courtName
+			,court_address AS courtAddress
+			,court_idx AS courtIdx
+		FROM court
+		WHERE court_idx = #{param1}
+	</select>	
+	
+	<!-- 게스트 모집글 - 코트 리스트 예약 시간 -->
+	<select id="bookingStartTimeGuest" resultType="String">
+		SELECT 
+			cb.booking_start_time 
+			FROM guest_join gj 
+			JOIN court_booking cb 
+			ON gj.court_booking_idx = cb.court_booking_idx
+			WHERE court_idx = #{param1}
+			AND cb.booking_date = #{param2}
+			GROUP by cb.booking_start_time
+	</select>	
+	
+	<!-- 게스트 모집글 - 업데이트 실행 -->
+	<update id="guestUpdate" parameterType="map">
+		UPDATE guest_join 
+			SET guest_fee = #{officialPrice}
+			,guest_level = #{officialLevel}
+			,guest_gender = #{officialGender}
+			,guest_to = #{officialTO}
+			,guest_info = #{officialInfo}
+			,guest_state = #{officialState}
+			WHERE guest_idx = #{guestIdx}
+	</update>	
+	
+	<!-- 게스트 모집글 - 업데이트 실행 (court_booking) -->
+	<update id="guestUpdateCourt" parameterType="map">
+		UPDATE court_booking 
+			SET court_idx = #{courtIdx}
+			,booking_date = #{officialDate}
+			,booking_start_time = #{officialStartTime}
+			,booking_end_time = #{officialEndTime}
+			WHERE court_booking_idx = #{courtBookingIdx}
+	</update>		
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

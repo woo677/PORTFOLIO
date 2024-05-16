@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.back.mypage.dao.MypageDAO">
+
+	<insert id="report" parameterType="map">
+	INSERT INTO report (id, report_tit, report_content, report_write_idx, report_write_type,report_state)
+		VALUES (#{id},#{report_tit}, #{report_content}, #{report_write_idx}, #{report_write_type},"처리전")
+	</insert>
+	
+	<select id="jjimList" resultType="com.back.mypage.dto.MypageDTO">
+		SELECT
+			j.like_idx AS jjimIdx
+			, c.court_name AS courtName
+			, c.court_address AS courtAddress
+			, c.court_price AS courtPrice
+		FROM jjim j 
+		JOIN court c 
+		ON j.court_idx = c.court_idx 
+		WHERE j.id = #{param1}
+		LIMIT #{param2}, 10
+	</select>
+	
+	<select id="jjimListCount" resultType="int">
+		SELECT
+			COUNT(j.like_idx) AS jjimIdx
+		FROM jjim j 
+		JOIN court c 
+		ON j.court_idx = c.court_idx 
+		WHERE j.id = #{param1}
+	</select>
+	
+	<delete id="jjimDel">
+		
+		DELETE FROM jjim
+		WHERE like_idx = #{param1}
+	
+	</delete>
+
+<!-- ============ 포인트 관련 쿼리 =============== -->
+
+<select id="my_allpoint_ajax" resultType="String">
+SELECT point FROM member where id=#{param1}
+</select>
+
+<insert id="Charging_do"> 
+	INSERT into point_list(id,point_change,point_state)values(#{param1},#{param2},"충전")
+</insert>
+
+<insert id="PointMinus"> 
+	INSERT into point_list(id,point_change,point_state)values(#{param1},#{param2},"환급")
+</insert>
+
+<select id="point" resultType="String"> 
+	SELECT 
+		( (SELECT SUM(point_change) FROM point_list ps where id =#{param1} AND point_state ="충전") - 
+		SUM(point_change) ) as point 
+	FROM point_list pl where id=#{param1} AND point_state ="환급";
+</select>
+
+<select id="point_list_ajax" resultType="com.back.mypage.dto.MypageDTO">
+	SELECT pl.point_idx
+		,pl.point_date
+		,pl.point_change
+		,m.point
+		,pl.point_state
+FROM point_list pl join member m on pl.id = m.id where m.id = #{param1} ORDER BY point_idx DESC LIMIT #{param2} OFFSET #{param3}
+</select>
+
+<select id="point_allConut" resultType="Integer">
+	SELECT CEIL(COUNT(id)/#{param1}) AS pages FROM point_list where id = #{param2}
+</select>
+
+<update id="point_plus_update">
+UPDATE member SET 
+	point= (SELECT point+
+					(SELECT point_change FROM  point_list pl where id=#{param1} order by point_idx DESC limit 0,1) 
+			   FROM member m where id=#{param1})
+	where id=#{param1}
+</update>
+
+<update id="point_minus_update">
+UPDATE member SET 
+	point= (SELECT point-
+					(SELECT point_change FROM  point_list pl where id=#{param1} order by point_idx DESC limit 0,1) 
+			   FROM member m where id=#{param1})
+	where id=#{param1}
+</update>
+
+
+<!-- =========== 신청/예약 리스트 =====================  -->
+
+<select id="official_match_list_ajax" resultType="com.back.official.dto.OfficialDTO">
+SELECT om.official_match_idx
+	   ,om.official_match_date
+	   ,CONCAT(om.official_match_start_time," ~ ",
+	   om.official_match_end_time) as time
+	   ,omal.official_match_ask_idx
+	   ,omal.official_match_ask_state
+	   ,omal.id 
+FROM official_match om
+right outer join
+offcial_match_ask_list omal on omal.official_match_idx = om.official_match_idx WHERE omal.id =#{param1}
+ORDER BY om.official_match_date  DESC LIMIT #{param2} OFFSET #{param3}
+</select>
+
+<!-- 페이징 페이지 자동으로 계산 해줌 -->
+<select id="official_match_allConut" resultType="Integer">
+SELECT CEIL(COUNT(id)/#{param1}) FROM offcial_match_ask_list where id = #{param2};
+</select>
+
+
+<!-- 게스트 리스트  -->
+<select id="guest_match_list_ajax"  resultType="com.back.mypage.dto.MypageDTO">
+	SELECT
+	cb.booking_date
+	,guest_idx.guest_join_idx
+	,CONCAT(cb.booking_start_time, ' ~ ', cb.booking_end_time) AS guest_time
+	,guest_idx.guest_join_state FROM court_booking cb 
+join(
+	SELECT gj.court_booking_idx
+		  ,gjl.guest_join_state 
+		  ,gjl.guest_join_idx
+	FROM guest_join_list gjl join guest_join gj on gjl.guest_idx = gj.guest_idx where gjl.id =#{param1})as guest_idx
+on cb.court_booking_idx = guest_idx.court_booking_idx ORDER BY cb.booking_date LIMIT #{param2} offset #{param3};
+</select>
+
+<select id="guest_match_allConu" resultType="Integer">
+SELECT CEIL(COUNT(guest_join_idx)/#{param1}) FROM guest_join_list where id = #{param2}
+</select>
+
+<!-- 구장 예약 -->
+
+<select id="court_match_list_ajax" resultType="com.back.mypage.dto.MypageDTO">
+	SELECT 
+		c.court_name
+		,cb.court_booking_idx 
+		,cb.booking_date
+		,cb.booking_state 
+		,CONCAT(cb.booking_start_time," ~ ",cb.booking_end_time) as court_time
+	FROM court c join court_booking cb 
+	on c.court_idx=cb.court_idx where cb.id=#{param1} order BY cb.booking_date LIMIT #{param2} offset #{param3}
+</select>
+
+<!-- 페이징 처리 -->
+<select id="court_match_allConu" resultType="Integer">
+SELECT CEIL(COUNT(court_booking_idx)/#{param1}) FROM court_booking cb where id =#{param2}
+</select>
+
+
+<insert id="official_Cancellation">
+INSERT into point_list(id,
+	point_change,
+	point_state,
+	write_idx,
+	write_type)
+select id,
+	(SELECT	official_match_fee 
+	FROM official_match om 
+	where official_match_idx =
+	(SELECT official_match_idx FROM offcial_match_ask_list omal where id = #{param1} AND official_match_ask_idx = #{param2}))
+	,"취소"
+	,write_idx
+	,write_type 
+FROM point_list where point_idx = (SELECT point_idx FROM point_list pl where id = #{param1} and point_state = "대기" and write_idx = (SELECT official_match_idx FROM offcial_match_ask_list where id = #{param1} AND official_match_ask_idx = #{param2})ORDER by point_idx DESC limit 0,1 )
+</insert>
+
+
+<!-- 공식 경기 리스 트 삭제 -->
+<delete id="match_ask_list_del" >
+DELETE FROM offcial_match_ask_list where id = #{param1} and official_match_ask_idx=#{param2}
+</delete>
+
+
+
+<!-- 게스트 리스트 삭제 -->
+<delete id="guset_match_list_del">
+DELETE FROM guest_join_list WHERE id=#{param1} AND guest_join_idx =#{param2}
+</delete>
+
+
+<insert id="court_Cancellation">
+INSERT into point_list(id,
+	point_change,
+	point_state,
+	write_idx,
+	write_type)
+select id
+	,(SELECT court_price FROM  court c where court_idx = (SELECT court_idx FROM court_booking cb where id = #{param1} AND court_booking_idx = #{param2}))
+	,"취소"
+	,write_idx
+	,write_type
+FROM point_list 
+WHERE point_idx =(SELECT point_idx FROM point_list pl where id = #{param1} AND point_state = "예약" AND write_type ="구장예약" and write_idx = (SELECT court_idx FROM court_booking c where id = #{param1} AND court_booking_idx = #{param2})ORDER by point_idx DESC limit 0,1)
+</insert>
+
+
+<delete id="court_match_list_del">
+DELETE FROM court_booking where id=#{param1} AND court_booking_idx = #{param2}
+</delete>
+
+
+
+<!-- ===================== 신고 리스트 / 수정 ================================== -->
+
+
+<select id="report_detail"  resultType="com.back.mypage.dto.MypageDTO">
+SELECT report_tit,report_content,report_idx,report_feed FROM report r where id =#{param1} AND report_idx=#{param2}
+</select>
+
+<update id="report_modify" parameterType="map">
+UPDATE report SET report_tit=#{report_tit},report_content=#{report_content} WHERE report_idx =#{report_idx}
+</update>
+
+<select id="report_list" resultType="com.back.mypage.dto.MypageDTO">
+	SELECT report_idx
+		,report_tit
+		,report_date
+		,report_state 
+	FROM report r WHERE id = #{param1} order by report_date desc limit #{param2},#{param3}
+</select>
+
+<!-- 총 페이지 자동 계산 -->
+<select id="totalPages" resultType="Integer">
+	SELECT CEIL(COUNT(report_idx)/#{param1}) FROM report r WHERE id = #{param2}
+</select>
+
+<delete id="report_del_ajax">
+	DELETE FROM report where id = #{param1} AND report_idx = #{param2}
+</delete>
+
+<select id="mprofile_detail" resultType="com.back.mypage.dto.MypageDTO"> 
+	SELECT id,name,point,address,gender,position,level,state FROM member WHERE id = #{param1} 
+</select>
+
+<select id="profile_detail_ajax" resultType="com.back.mypage.dto.MypageDTO">
+	SELECT id,name,point,address,gender,position,level,state FROM member WHERE id = #{param1} 
+</select>
+
+<update id="profile_detail_do" parameterType="map"> 
+	UPDATE member SET name=#{Name}, address=#{Area},gender=#{gender},position=#{Position},level=#{Level} WHERE id =#{id}
+</update>
+
+</mapper>

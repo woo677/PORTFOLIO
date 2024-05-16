@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.back.member.dao.MemberDAO">
+	
+	<select id="loginId" resultType="String">
+		SELECT id FROM member WHERE id=#{param1} and pw=#{param2}
+	</select>
+	
+	<select id="loginperm" resultType="com.back.member.dto.MemberDTO">
+		SELECT perm,state FROM member WHERE id=#{param1} and pw=#{param2}
+	</select>
+	
+	<insert id="Join" parameterType="map">
+		INSERT INTO member(id,
+			pw,
+			name,
+			address,
+			gender,position,level,point,perm,state)
+		values(#{id},#{pw},#{name},#{address},#{gender},#{position},#{level},0,"고객","일반")
+	</insert>
+	
+	<select id="overlay" resultType="int">
+	SELECT COUNT(id) FROM member where id=#{param1}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

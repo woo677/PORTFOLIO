@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.back.official.dao.OfficialDAO">
+	
+	<!-- match_list -->
+	
+	<!-- list 출력 -->
+	<select id="list" resultType="com.back.official.dto.OfficialDTO">
+		SELECT
+		   	official_match_idx
+		  	,official_match_date
+		  	,(SELECT court_address FROM court c WHERE c.court_idx = o.court_idx) AS court_address
+		  	,official_match_level
+		  	,(SELECT count(official_match_idx) FROM offcial_match_ask_list f 
+		  	WHERE f.official_match_idx = o.official_match_idx) AS currentCount
+		  	,official_match_to
+			FROM official_match o
+			JOIN court t
+			ON o.court_idx = t.court_idx
+		WHERE t.court_state = 'true'
+		AND o.official_match_post_state = 'true'
+		AND o.official_match_date  > CURDATE()
+		ORDER BY court_address asc LIMIT #{param1}, 10
+	</select>
+	
+	<!-- 주소 필터 list 출력 -->
+	<select id="listFilterAddress" resultType="com.back.official.dto.OfficialDTO">
+		SELECT
+		   	official_match_idx
+		  	,official_match_date
+		  	,(SELECT court_address FROM court c WHERE c.court_idx = o.court_idx) AS court_address
+		  	,official_match_level
+		  	,(SELECT count(official_match_idx) FROM offcial_match_ask_list f 
+		  	WHERE f.official_match_idx = o.official_match_idx) AS currentCount
+		  	,official_match_to
+			FROM official_match o
+			JOIN court t
+			ON o.court_idx = t.court_idx
+		WHERE t.court_state = 'true'
+		AND o.official_match_post_state = 'true'
+		AND t.court_address LIKE CONCAT('%', #{param2}, '%')
+		AND o.official_match_date  > CURDATE()
+		ORDER BY court_address asc LIMIT #{param1}, 10
+	</select>
+	
+	<!-- 레벨 필터 list 출력 -->
+	<select id="listFilterLevel" resultType="com.back.official.dto.OfficialDTO">
+		SELECT
+		   	official_match_idx
+		  	,official_match_date
+		  	,(SELECT court_address FROM court c WHERE c.court_idx = o.court_idx) AS court_address
+		  	,official_match_level
+		  	,(SELECT count(official_match_idx) FROM offcial_match_ask_list f 
+		  	WHERE f.official_match_idx = o.official_match_idx) AS currentCount
+		  	,official_match_to
+			FROM official_match o
+			JOIN court t
+			ON o.court_idx = t.court_idx
+		WHERE t.court_state = 'true'
+		AND o.official_match_post_state = 'true'
+		AND o.official_match_level LIKE CONCAT('%', #{param2}, '%')
+		AND o.official_match_date  > CURDATE()
+		ORDER BY court_address asc LIMIT #{param1}, 10
+	</select>
+	
+	<!-- 주소,레벨 필터 list 출력 -->
+	<select id="listFilterAll" resultType="com.back.official.dto.OfficialDTO">
+		SELECT
+		   	official_match_idx
+		  	,official_match_date
+		  	,(SELECT court_address FROM court c WHERE c.court_idx = o.court_idx) AS court_address
+		  	,official_match_level
+		  	,(SELECT count(official_match_idx) FROM offcial_match_ask_list f 
+		  	WHERE f.official_match_idx = o.official_match_idx) AS currentCount
+		  	,official_match_to
+			FROM official_match o
+			JOIN court t
+			ON o.court_idx = t.court_idx
+		WHERE t.court_state = 'true'
+		AND o.official_match_post_state =true'
+		AND t.court_address LIKE CONCAT('%', #{param2}, '%')
+		AND o.official_match_level LIKE CONCAT('%', #{param3}, '%')
+		AND o.official_match_date  > CURDATE()
+		ORDER BY court_address asc LIMIT #{param1}, 10
+	</select>
+	
+	<!-- list 출력(list 에 포함되어 있는 지역 주소들을 필터에 넣기위해 페이징 처리 전 모든 리스트 출력) -->
+	<select id="allList" resultType="com.back.official.dto.OfficialDTO">
+		SELECT
+		   	official_match_idx
+		  	,official_match_date
+		  	,(SELECT court_address FROM court c WHERE c.court_idx = o.court_idx) AS court_address
+		  	,official_match_level
+		  	,(SELECT count(official_match_idx) FROM offcial_match_ask_list f 
+		  	WHERE f.official_match_idx = o.official_match_idx) AS currentCount
+		  	,official_match_to
+			FROM official_match o
+			JOIN court t
+			ON o.court_idx = t.court_idx
+		WHERE t.court_state = 'true'
+		AND o.official_match_post_state = 'true'
+		AND o.official_match_date  > CURDATE()
+	</select>
+	
+	<!-- 토탈 페이지 수 -->
+	<select id="allMatchCount" resultType="int">
+		SELECT CEIL(COUNT(official_match_idx)/10) AS totalPage
+		FROM official_match o
+		WHERE official_match_post_state = "true"
+		AND o.official_match_date  > CURDATE()
+	</select>
+	
+	<!-- 지역 필터 후 토탈 페이지 수 -->
+	<select id="addressFilteringMatchCount" resultType="int">
+		SELECT CEIL(COUNT(official_match_idx)/10) AS totalPage 
+		FROM official_match o
+		JOIN court t
+		ON o.court_idx = t.court_idx
+		WHERE court_address LIKE CONCAT('%', #{param1}, '%')
+		AND o.official_match_date  > CURDATE()
+	</select>
+	
+	<!-- 레벨 필터 후 토탈 페이지 수 -->
+	<select id="levelFilteringMatchCount" resultType="int">
+		SELECT CEIL(COUNT(official_match_idx)/10) AS totalPage 
+		FROM official_match o
+		JOIN court t
+		ON o.court_idx = t.court_idx
+		WHERE official_match_level LIKE CONCAT('%', #{param1}, '%')
+		AND o.official_match_date  > CURDATE()
+	</select>
+	
+	<!-- 지역,레벨 필터 후 토탈 페이지 수 -->
+	<select id="allFilteringMatchCount" resultType="int">
+		SELECT CEIL(COUNT(official_match_idx)/10) AS totalPage 
+		FROM official_match o
+		JOIN court t
+		ON o.court_idx = t.court_idx
+		WHERE court_address LIKE CONCAT('%', #{param1}, '%')
+		AND official_match_level LIKE CONCAT('%', #{param2}, '%')
+		AND o.official_match_date  > CURDATE()
+	</select>
+	
+	<!-- 검색 list 출력 -->
+	<select id="searchList" resultType="com.back.official.dto.OfficialDTO">
+		SELECT
+		   	official_match_idx
+		  	,official_match_date
+		  	,(SELECT court_address FROM court c WHERE c.court_idx = o.court_idx) AS court_address
+		  	,official_match_level
+		  	,(SELECT count(official_match_idx) FROM offcial_match_ask_list f 
+		  	WHERE f.official_match_idx = o.official_match_idx) AS currentCount
+		  	,official_match_to
+			FROM official_match o
+			JOIN court t
+			ON o.court_idx = t.court_idx
+		WHERE t.court_state = 'true'
+		AND o.official_match_post_state = 'true'
+		AND t.court_address LIKE CONCAT('%', #{param2}, '%')
+		AND o.official_match_date  > CURDATE()
+		ORDER BY court_address asc LIMIT #{param1}, 10
+	</select>
+	
+	<!-- 지역,레벨,검색 필터 후 토탈 페이지 수 -->
+	<select id="searchMatchCount" resultType="int">
+		SELECT CEIL(COUNT(official_match_idx)/10) AS totalPage 
+		FROM official_match o
+		JOIN court t
+		ON o.court_idx = t.court_idx
+		WHERE court_address LIKE CONCAT('%', #{param1}, '%')
+		AND o.official_match_post_state = 'true'
+		AND o.official_match_date  > CURDATE()
+	</select>
+	
+	
+	<!-- match_info -->
+	
+	<!-- 사진 이미지 조회 -->
+	<select id="photo" resultType="com.back.official.dto.OfficialDTO">
+		SELECT file_name
+			FROM court_image ci 
+			JOIN court c
+			ON ci.court_idx = c.court_idx
+			JOIN official_match om
+			ON om.court_idx = c.court_idx
+			WHERE om.official_match_idx = #{param1}
+	</select>
+	
+	<!-- 정보 조회 -->
+	<select id="info" resultType="com.back.official.dto.OfficialDTO">
+		SELECT
+			official_match_idx
+			,official_match_date
+		   	,official_match_start_time
+		   	,official_match_end_time
+		  	,official_match_level
+		  	,(SELECT count(official_match_idx) FROM offcial_match_ask_list f 
+		  	WHERE f.official_match_idx = o.official_match_idx) AS currentCount
+		  	,official_match_to
+		  	,official_match_info
+		  	,official_match_fee
+			FROM official_match o
+			JOIN court t
+			ON o.court_idx = t.court_idx
+		WHERE t.court_state = 'true'
+		AND o.official_match_post_state = 'true'
+		and official_match_idx = #{param1}
+	</select>
+	
+	<!-- 주소 조회 -->
+	<select id="addressInfo" resultType="com.back.official.dto.OfficialDTO">
+		SELECT
+			t.court_name 
+		  	,(SELECT court_address FROM court c WHERE c.court_idx = o.court_idx) AS court_address
+			FROM official_match o
+			JOIN court t
+			ON o.court_idx = t.court_idx
+		WHERE t.court_state = 'true'
+		AND o.official_match_post_state = 'true'
+		and official_match_idx = #{param1}
+	</select>
+	
+	<select id="officialApli" resultType="String">
+		select 
+			id
+			from offcial_match_ask_list omal 
+			where official_match_idx = #{param1}
+	</select>
+	
+	<!-- 내가 가진 포인트 조회 -->
+	<select id="compare" resultType="int">
+		select point
+			from member
+			where id = #{param1}
+	</select>
+	
+	<!-- 내가 가진 포인트에서 참가비 차감 -->
+	<update id="payMinus">
+		update member set point = point - #{param2} where id = #{param1};
+	</update>
+	
+	<!-- 신청내역에 추가 -->
+	<insert id="insertNotice">
+		insert into offcial_match_ask_list(id
+		,official_match_idx
+		,official_match_ask_state)values(#{param2}
+		,#{param1}
+		,"신청");
+	</insert>
+	
+	<insert id="addPointList">
+		INSERT INTO point_list(id
+		,point_change
+		,point_state
+		,write_idx
+		,write_type)VALUES(#{param2},#{param3},"대기",#{param1},"공식경기")
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

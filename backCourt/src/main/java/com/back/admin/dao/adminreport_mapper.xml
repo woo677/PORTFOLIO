@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.back.admin.dao.AdminReportDAO">
+
+	<select id="list" resultType="com.back.admin.dto.AdminReportDTO">
+		SELECT
+			r.report_idx AS reportIdx
+			, r.report_state AS reportState
+			, r.report_tit AS reportSubject
+			, r.id AS reportId
+			, r.report_date AS reportDate
+			, (SELECT f.id from feed f WHERE r.report_idx = f.report_idx
+				ORDER by f.feed_idx DESC limit 1) AS reportAdminId
+		FROM report r
+		<choose>
+			<when test='searchFlag == "true"'>
+				 WHERE r.id LIKE CONCAT('%', #{reportSearch}, '%')
+			</when>
+			<when test='reportState != null and reportState != ""'>
+				 WHERE r.report_state = #{reportState}
+			</when>
+		</choose>
+		ORDER BY r.report_idx 
+		LIMIT #{start}, 10
+	</select>
+	
+	<select id="totalPage" resultType="int">
+		SELECT
+			COUNT(r.report_idx)
+		FROM report r
+		LEFT JOIN feed f ON r.report_idx = f.report_idx
+		<choose>
+			<when test='searchFlag == "true"'>
+				WHERE r.id LIKE CONCAT('%', #{reportSearch}, '%')
+			</when>
+			<when test='reportState != null and reportState != ""'>
+				WHERE r.report_state = CONCAT('%', #{reportState}, '%')
+			</when>
+		</choose>
+	</select>
+
+	<select id="detail" resultType="com.back.admin.dto.AdminReportDTO">
+			
+		SELECT 
+			report_write_type AS reportCategory
+			, report_write_idx  AS reportCategoryIdx
+			, id AS reportId
+			, report_date AS reportDate
+			, report_state AS reportState
+			, report_tit AS reportSubject
+			, report_content AS reportContent
+			, report_feed AS reportFeed
+		FROM report
+		WHERE report_idx = #{param1};
+		
+	</select>
+
+	<update id="update" parameterType="String">
+		UPDATE report
+		SET report_state = #{param2}, report_feed = #{param3}
+		WHERE report_idx = #{param1}
+	</update>
+
+	<insert id="feedInsert" parameterType="String">
+		INSERT INTO feed(id,report_idx) values(#{param1},#{param2})
+	</insert>
+
+	
+	<insert id="noticeInsert" parameterType="String">
+		INSERT INTO notice(id,notice_content) values(#{param1},#{param2})
+	</insert>
+
+</mapper>

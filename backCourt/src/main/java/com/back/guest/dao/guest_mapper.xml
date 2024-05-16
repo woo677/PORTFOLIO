@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.back.guest.dao.GuestDAO">
+	<insert id="guestWrite" parameterType="map">
+		insert into guest_join (
+			id
+			,court_booking_idx
+			,team_idx
+			,guest_position
+			,guest_level
+			,guest_gender
+			,guest_to
+			,guest_info
+			,guest_fee
+			,guest_state
+		)values(
+				#{id}
+				,#{court_booking_idx}
+				,#{team_idx}
+				,#{guest_position}
+				,#{guest_level}
+				,#{guest_gender}
+				,#{guest_to}
+				,#{guest_info}
+				,#{guest_fee}
+				,#{guest_state}
+			);
+	</insert>
+	
+	<select id="courtList" resultType="com.back.guest.dto.GuestDTO">
+		SELECT cb.court_booking_idx, c.court_name, c.court_address, 
+		CONCAT(cb.booking_date, '/', cb.booking_start_time, '~', cb.booking_end_time) AS bookingDate
+		FROM court_booking cb JOIN court c ON cb.court_idx = c.court_idx WHERE id = #{param1}
+	</select>
+	
+	<select id="callmyteam" resultType="int">
+		SELECT team_idx from team where id = #{param1} limit 1; 
+	</select>
+	
+	
+	<!-- 수정페이지 -->
+	<select id="guestModify" resultType="com.back.guest.dto.GuestDTO">
+		SELECT 
+			c.court_address 
+			,CONCAT(cb.booking_date,cb.booking_start_time, cb.booking_end_time) as bookingDate
+			, c.court_name 
+			,gj.guest_info 
+			,gj.guest_level 
+			,gj.guest_position 
+			,gj.guest_gender 
+			,gj.guest_to 
+			,gj.guest_fee 
+		FROM guest_join gj join court_booking cb on gj.court_booking_idx = cb.court_booking_idx join court c on cb.court_idx = c.court_idx 
+		where gj.guest_idx = #{param1};
+	</select>
+	
+	<update id="writeUpdate" parameterType="Object">
+		UPDATE guest_join SET 
+			guest_info = #{param1} 
+			,guest_level = #{param2}
+			,guest_position = #{param3}
+			,guest_gender = #{param4}
+			,guest_to = #{param5}
+			,guest_fee = #{param6}
+		WHERE guest_idx = #{param7};
+	</update>
+	
+	
+	<!--  게스트 모집 리스트 페이지 -->
+	<select id="guestList" resultType="com.back.guest.dto.GuestDTO">
+		SELECT 
+			gj.guest_idx
+			,c.court_name 
+			,c.court_address 
+			,t.team_name 
+			,gj.guest_gender 
+			,gj.guest_position 
+			,gj.guest_level 
+			,gj.guest_to 
+		FROM guest_join gj 
+		JOIN court_booking cb 
+		ON gj.court_booking_idx = cb.court_booking_idx 
+		JOIN court c 
+		ON c.court_idx = cb.court_idx 
+		JOIN team t
+		ON t.team_idx = gj.team_idx 
+		WHERE gj.guest_state = 'true'
+	</select>
+	
+	<!-- 게스트모집 상세페이지 사진 띄우기 -->
+	<select id="fileNameList" resultType="String">
+		SELECT 
+			file_name
+		FROM court_image ci 
+		JOIN court c 
+		ON ci.court_idx = c.court_idx 
+		JOIN court_booking cb 
+		ON cb.court_idx = ci.court_idx
+		JOIN guest_join gj 
+		ON cb.court_booking_idx = gj.court_booking_idx 
+		WHERE gj.guest_idx = #{param1}
+	</select>
+	
+	<!-- 게스트모집 상세 정보 불러오기 -->
+	<select id="detail" resultType="com.back.guest.dto.GuestDTO">
+		SELECT 
+		CONCAT(cb.booking_date, '/', cb.booking_start_time, '~', cb.booking_end_time) AS bookingDate
+		,gj.guest_idx
+		,c.court_name 
+		,c.court_address 
+		,t.team_name 
+		,gj.guest_gender 
+		,gj.guest_position 
+		,gj.guest_level 
+		,gj.guest_to 
+		,gj.guest_info 
+		,gj.guest_fee 
+	FROM guest_join gj 
+	join court_booking cb 
+	on gj.court_booking_idx = cb.court_booking_idx 
+	join court c 
+	on c.court_idx = cb.court_idx 
+	join team t
+	on t.team_idx = gj.team_idx 
+	WHERE gj.guest_state = 'true' and gj.guest_idx = #{param1}
+	</select>
+	
+	<insert id="guestJoinListInsert" parameterType="String">
+		INSERT INTO guest_join_list (
+			id
+			,guest_idx
+			,guest_join_state
+		)
+		VALUES (
+			#{param2}
+			,#{param1}
+			,'신청중'
+		)
+		
+	</insert>
+	
+	<insert id="guestNoticeInsert" parameterType="String">
+		INSERT into notice (
+			id
+			,notice_content
+		)
+		values (
+			(select id from guest_join where guest_idx=#{param1})
+			,'게스트 참가신청이 들어왔습니다.'
+		)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.back.admin.dao.AdminTeamDAO">
+
+	<select id="totalPage" resultType="int">
+		SELECT COUNT(team_idx)
+		FROM team
+		<choose>
+			<when test='searchFlag == "true" and searchCategory == "teamName"' >
+				where team_name like CONCAT('%', #{searchWord} ,'%')
+			</when>
+			<when test='searchFlag == "true" and searchCategory == "teamAddress"' >
+				where team_address like CONCAT('%', #{searchWord} ,'%')
+			</when>
+		</choose>
+	</select>
+
+	<select id="list" resultType="com.back.admin.dto.AdminTeamDTO">
+		SELECT 
+			logo
+			, team_name 
+			, team_address 
+			, id 
+			, team_idx 
+		from team
+		<choose>
+			<when test='searchFlag == "true" and searchCategory == "teamName"' >
+				where team_name like CONCAT('%', #{searchWord} ,'%')
+			</when>
+			<when test='searchFlag == "true" and searchCategory == "teamAddress"' >
+				where team_address like CONCAT('%', #{searchWord} ,'%')
+			</when>
+		</choose>
+		limit #{start},10
+	</select>
+	
+	
+	
+	<select id="teamInfo" resultType="com.back.admin.dto.AdminTeamDTO">
+		SELECT
+			logo 
+			,team_name 
+			,team_level 
+			,team_address 
+			,team_info 
+			,team_idx 
+			,id
+		FROM team  
+		where team_idx = #{param1}	
+	</select>
+	
+	<select id="teammateList" resultType="com.back.admin.dto.AdminTeamDTO">
+		SELECT 
+			tl.id 
+			, CASE 
+			when tl.id = t.id then '팀장'
+			else '팀원'
+			end as teamjang
+		FROM team t 
+		join team_list tl 
+		on t.team_idx = tl.team_idx 
+		where t.team_idx = #{param1}
+		order by teamjang desc
+		LIMIT #{param2},10
+	</select>
+	
+	<select id="teammateTotal" resultType="int">
+		SELECT 
+			COUNT(id) 
+		FROM team_list tl
+		where team_idx = #{param1}
+	</select>
+	
+	<update id="teamUpdate" parameterType="map">
+		UPDATE team 
+		set
+			team_name = #{teamName}
+			,team_address = #{teamAddress}
+			,team_level = #{teamLevel}
+			,team_info = #{teamInfo}
+		WHERE team_idx = #{teamIdx}
+	</update>
+	
+	<update id="teamLogoUpdate" parameterType="map">
+		UPDATE team 
+		set
+			logo = 'defaultLogo'
+		WHERE team_idx = #{teamIdx}
+	</update>
+	
+	<select id="teamLogoName" resultType="String">
+		select logo
+		from team
+		where team_idx = #{teamIdx}
+	</select>
+	
+	<select id="teamMemberDetail" resultType="com.back.admin.dto.AdminTeamDTO">
+		SELECT 
+			tj.join_team_idx
+			,tj.join_team_state 
+			,t.team_name 
+			,t.team_address 
+			,tj.join_team_content 
+			,tj.join_team_level 
+			,t.team_info 
+			FROM team t
+			JOIN team_join tj
+			ON t.team_idx = tj.team_idx
+			WHERE tj.join_team_idx = #{param1}
+	</select>	
+	
+	<update id="teamMemberUpdate">
+		UPDATE team_join
+			SET join_team_content = #{param2}
+			,join_team_level = #{param3}
+			,join_team_state = #{param4}
+			WHERE join_team_idx = #{param1}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

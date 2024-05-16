@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.back.court.dao.CourtDAO">
+
+
+	<select id="addressList" resultType="String">
+		SELECT court_address
+		FROM court 
+		WHERE court_state = 'true'
+		AND court_official = 'false'
+		GROUP BY court_address
+		ORDER BY court_address
+	</select>
+	
+	<select id="totalPage" resultType="int">
+		SELECT COUNT(court_idx)
+		FROM court
+		WHERE court_state = 'true'
+		AND court_official = 'false'
+		<choose>
+			<when test='searchFlag == "true" and searchCategory == "courtName"'>
+				AND court_name LIKE CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='searchFlag == "true" and searchCategory == "courtAddress"'>
+				AND court_address LIKE CONCAT('%', #{searchWord},'%')
+			</when>
+			<when test='address != null'>
+				AND court_address LIKE CONCAT('%', #{address}, '%')
+			</when>
+		</choose>
+	</select>
+
+	<select id="list" resultType="com.back.court.dto.CourtDTO">
+
+		SELECT
+		(SELECT ci.file_name
+			FROM court_image ci
+			WHERE ci.court_idx = c.court_idx
+			ORDER BY ci.photo_idx ASC
+			LIMIT 1) AS firstImageName
+		, c.court_name AS courtName
+		,c.court_address AS courtAddress
+		,c.court_info AS courtInfo
+		,c.court_price AS courtPrice
+		,c.court_state AS courtState
+		,c.court_official AS courtOfficial
+		,c.court_idx AS courtIdx
+		,(SELECT COUNT(j.court_idx)
+			FROM jjim j
+			WHERE j.court_idx = c.court_idx
+			AND j.id = #{id}) AS jjim
+		,c.court_idx
+		FROM court c
+		WHERE c.court_state = 'true'
+		AND c.court_official = 'false'
+		<choose>
+			<when test='searchFlag == "true" and searchCategory == "courtName"'>
+				AND c.court_name LIKE CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='searchFlag == "true" and searchCategory == "courtAddress"'>
+				AND c.court_address LIKE CONCAT('%', #{searchWord},'%')
+			</when>
+			<when test='address != null'>
+				AND c.court_address LIKE CONCAT('%', #{address}, '%')
+			</when>
+		</choose>
+		LIMIT #{start}, 10
+
+	</select>
+
+
+	<insert id="jjim">
+
+		INSERT INTO
+		jjim(id,court_idx)
+		values(#{param1},#{param2})
+
+	</insert>
+
+	<delete id="jjimRemove">
+
+		DELETE FROM jjim
+		WHERE id = #{param1} AND court_idx = #{param2}
+
+	</delete>
+
+	<select id="detail" resultType="com.back.court.dto.CourtDTO">
+		SELECT court_name AS courtName
+		, court_address AS courtAddress
+		, court_info AS courtInfo
+		, court_price AS courtPrice
+		FROM
+		court
+		WHERE court_idx = #{param1}
+
+	</select>
+
+	<select id="fileNameList" resultType="String">
+		SELECT file_name from
+		court_image WHERE court_idx = #{param1}
+	</select>
+
+	<select id="bookingStartTimeList" resultType="String">
+		SELECT
+		booking_start_time
+		FROM court_booking
+		WHERE court_idx = #{param1}
+		AND booking_date = #{param2}
+	</select>
+
+	<select id="duplicateCheckBooking" resultType="int">
+
+		SELECT COUNT(court_booking_idx)
+		FROM court_booking
+		WHERE booking_date = #{param1}
+		AND booking_start_time = #{param2}
+		AND court_idx = #{param3}
+
+	</select>
+
+	<select id="myPoint" resultType="int">
+		SELECT point
+		FROM member
+		WHERE id
+		= #{param1}
+	</select>
+
+	<insert id="insertBooking" parameterType="map">
+		INSERT INTO 
+			court_booking(id,court_idx,booking_date,booking_start_time,booking_end_time,booking_state)
+			VALUES(#{id},#{court_idx},#{booking_date},#{booking_start_time},#{booking_end_time},#{booking_state})
+	</insert>
+	
+	<insert id="insertPointHistory" parameterType="map">
+		INSERT INTO
+			point_list(id,point_change,point_state,write_idx,write_type)
+			VALUES(#{id},#{point_change},#{point_state},#{write_idx},#{write_type})
+	</insert>
+	
+	<update id="updateUserPoint" parameterType="map">
+		UPDATE member
+		SET point = point - #{point_change}
+		WHERE id = #{id}
+	</update>
+</mapper>

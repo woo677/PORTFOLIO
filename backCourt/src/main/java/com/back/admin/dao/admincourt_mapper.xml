@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.back.admin.dao.AdminCourtDAO">
+
+	<select id="totalPage" resultType="int">
+		SELECT
+			COUNT(court_idx)
+		FROM court
+		<choose>
+			<when test='searchFlag == "true" and searchCategory == "courtName"'>
+				WHERE court_address LIKE CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='searchFlag == "true" and searchCategory == "courtAddress"'>
+				WHERE court_name LIKE CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='address != null'>
+				WHERE court_address LIKE CONCAT('%', #{address}, '%')
+			</when>
+		</choose>
+	</select>
+	
+	<select id="list" resultType="com.back.admin.dto.AdminCourtDTO">
+		
+		SELECT
+			court_idx AS courtIdx
+			, court_name AS courtName
+			, court_address AS courtAddress
+			, court_state AS courtState
+		FROM court
+		<choose>
+			<when test='searchFlag == "true" and searchCategory == "courtAddress"'>
+				WHERE court_address LIKE CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='searchFlag == "true" and searchCategory == "courtName"'>
+				WHERE court_name LIKE CONCAT('%', #{searchWord}, '%')
+			</when>
+			<when test='address != null'>
+				WHERE court_address LIKE CONCAT('%', #{address}, '%')
+			</when>
+		</choose>
+		ORDER BY court_address  LIMIT #{start}, 10
+		
+	</select>
+	
+	<select id="addressList" resultType="String">
+		SELECT court_address
+		FROM court 
+		GROUP BY court_address
+		ORDER BY court_address
+	</select>
+	
+	
+	<insert id="write" useGeneratedKeys="true" keyColumn="court_idx"
+		keyProperty="courtIdx" parameterType="com.back.admin.dto.AdminCourtDTO">
+		INSERT INTO 
+		court(court_name,court_address,court_info,court_price,court_state,court_official)
+		VALUES(#{courtName},#{courtAddress},#{courtInfo},#{courtPrice},#{courtState},#{courtOfficial})
+	</insert>
+	
+	<insert id="courtImageUpload" parameterType="String">
+		INSERT INTO 
+		court_image(court_idx,file_name)
+		VALUES(#{param1},#{param2})
+	</insert>
+	
+	<select id="detailLoad" resultType="com.back.admin.dto.AdminCourtDTO">
+		SELECT 
+			court_name AS courtName
+			, court_address AS courtAddress
+			, court_info AS courtInfo
+			, court_price AS courtPrice
+			, court_state AS courtState
+			, court_official AS courtOfficial
+		FROM court
+		WHERE court_idx = #{param1}
+	</select>
+	
+	<select id="fileName" resultType="String">
+		SELECT
+			file_name AS fileName
+		FROM court_image
+		WHERE court_idx = #{param1}
+	</select>
+	
+	<update id="update" parameterType="com.back.admin.dto.AdminCourtDTO">
+	
+		UPDATE court 
+		SET court_name = #{courtName}
+			,court_address = #{courtAddress}
+			,court_info = #{courtInfo}
+			,court_price = #{courtPrice}
+			,court_state = #{courtState}
+			,court_official = #{courtOfficial}
+		WHERE court_idx = #{courtIdx}
+		
+	</update>
+	
+	<delete id="deleteFileList" parameterType="int">
+		DELETE FROM court_image WHERE court_idx = #{param1}
+	</delete>
+	
+</mapper>

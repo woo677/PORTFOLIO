@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 시스템에게 참고하라고 주는것. 이게 필요 -->
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 이 xml 은 어떤 interface를 참조해서 사용해야 하는가? -->
+<mapper namespace="com.back.header.dao.HeaderDAO">
+	
+	<select id="teamList" resultType="com.back.header.dto.HeaderDTO">
+		SELECT 
+			tl.team_idx,
+			(SELECT logo FROM team t WHERE t.team_idx = tl.team_idx) as logo, 
+			(SELECT team_name FROM team t WHERE t.team_idx = tl.team_idx) as team_name
+			FROM team_list tl WHERE id = #{param1};
+	</select>
+	
+	<select id="noticeList" resultType="com.back.header.dto.HeaderDTO">
+		SELECT 
+			notice_idx,
+			notice_time, 
+			notice_content
+			FROM notice where id = #{param1}
+			ORDER BY notice_idx desc
+	</select>
+	
+	<delete id="del">
+		DELETE FROM notice where notice_idx = #{param1}
+	</delete>
+	
+	<select id="count" resultType="com.back.header.dto.HeaderDTO">
+		SELECT 
+			count(notice_content) as notice_count
+			FROM notice where id = #{param1}
+	</select>
+	
+	<select id="nav" resultType="com.back.member.dto.MemberDTO">
+		SELECT 
+			id,
+			point
+			FROM member where id = #{param1};	
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
