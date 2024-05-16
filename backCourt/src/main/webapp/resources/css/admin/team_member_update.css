@@ -1,0 +1,42 @@
+
+img{width:100%;}
+
+/*  */
+.teamUpdate{width:1400px;padding:50px 0;}
+.teamUpdate h1{font-size:40px;}
+.teamUpdate .flexBox{display:flex;border:1px solid #000;margin-top:30px;padding:20px;}
+
+/* leftBox */
+.teamUpdate .flexBox .leftBox{}
+.teamUpdate .flexBox .leftBox .teamLogo{}
+.teamUpdate .flexBox .leftBox .teamLogo .logoImg{display:inline-block;width:100px;margin-right:20px;}
+.teamUpdate .flexBox .leftBox .teamLogo .teamName{font-size:40px;vertical-align:30px;}
+
+.teamUpdate .flexBox .leftBox .address{margin-top:40px;}
+.teamUpdate .flexBox .leftBox .address .tit{display:inline-block;font-size:40px;font-weight:600;}
+.teamUpdate .flexBox .leftBox .address .txt{margin-left:20px;font-size:40px;}
+
+.teamUpdate .flexBox .leftBox .requbox{margin-top:40px;}
+.teamUpdate .flexBox .leftBox .requbox span{font-size:40px;vertical-align:top;font-weight:600;}
+.teamUpdate .flexBox .leftBox .requbox #requInfo{width:400px;height:300px;margin-left:20px;padding:10px;resize:none;font-size:20px;}
+
+.teamUpdate .flexBox .leftBox .teamLevel{margin-top:40px;font-weight:600;}
+.teamUpdate .flexBox .leftBox .teamLevel .tit{font-size:40px;vertical-align:-4px;}
+.teamUpdate .flexBox .leftBox .teamLevel #level{margin-left:20px;font-size:30px;}
+
+/* rightBox */
+.teamUpdate .flexBox .rightBox{margin-left:40px;}
+.teamUpdate .flexBox .rightBox .teaminfo{width:500px;margin-top:10px;}
+.teamUpdate .flexBox .rightBox .teaminfo .tit{font-size:40px;font-weight:600;}
+.teamUpdate .flexBox .rightBox .teaminfo .txt{overflow-wrap:break-word;margin-top:20px;font-size:30px;line-height:1.3;}
+
+/* stateWrap */
+.teamUpdate .stateWrap{float:right;}
+.teamUpdate .stateWrap #officialIsDisabled{}
+.teamUpdate .stateWrap label{}
+
+/* btnWrap */
+.teamUpdate .btnWrap{text-align:center;clear:both;}
+.teamUpdate .btnWrap button{margin:10px 10px 0;font-size:25px;}
+.teamUpdate .btnWrap #btnCancle{}
+.teamUpdate .btnWrap #btnModify{}

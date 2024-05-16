@@ -1,0 +1,64 @@
+#style{
+	width: 1280px;
+    margin: 0 auto;
+} 
+#he{
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    float:left; 
+    background-color: gainsboro;
+    margin-right: 100px;
+}  
+.thead_tr,.thead_th{
+    border-top: 1px  solid black;
+    border-bottom: 1px  solid black;
+    text-align: center;
+}
+.thead_td{
+    padding: 9px;
+    border-bottom: 1px  solid black;
+}
+.thead_th{
+    background-color: gainsboro;
+    padding: 5px 50px
+}
+#title{
+    /* float:left;  */
+    font-size: 23px;
+    margin-bottom: 4%;
+    font-weight: 700;
+    font-weight: 600;
+    margin-left: 0px;
+    font-weight: 600;
+}
+.poin{
+    font-weight: 600;
+    margin-left: -40px;
+}
+#he .point{
+    display: inline;
+    font-weight: 600;
+    margin-left: -40%;
+}
+.state{
+    border: 0px;
+    font-weight: 600;
+    background-color: rgb(93, 130, 255);
+    border-radius: 5px;
+    width: 80px;
+    height: 30px;
+} 
+#mon{
+    float:right; 
+    border: 0px;
+    width: 100px;
+    height: 35px;
+    background-color: red;
+    color: white;
+}
+.point_if{
+	padding: 9px;
+    text-align: center;
+    border-bottom: 1px  solid black;
+}

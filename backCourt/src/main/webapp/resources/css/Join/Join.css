@@ -1,0 +1,67 @@
+body{
+    /* border: 1px solid black; */
+    position: fixed;
+    left: 30%;
+    top: 20%;
+    /* text-align: center; */
+}
+
+img{
+    width: 50px;
+    height: 50px;
+    /* border: 1px solid black; */
+}
+h1{
+    display: inline;
+    font-size: 30px;
+    position: fixed;
+    top: 21%;
+    font-weight: 600;
+}
+tr,th{
+    /* border: 1px solid black; */
+    padding: 5px 5px 5px 5px;
+}
+th{
+    font-weight: 600;
+}
+.in{
+    margin-left: 50px;
+}
+#inp{
+    margin-left: 10%;
+}
+input[type="text"]{
+    width: 150px;
+    height: 19px;
+}
+input[type="password"]{
+    width: 150px;
+    height: 19px;
+}
+select{
+    width: 160px;
+    height: 20px;
+}
+form>input[type="button"]{
+    background-color: gainsboro;
+    border: 0px;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 90px;
+    height: 30px;
+}
+input#inp{
+    background-color: orangered;
+    border: 0px;
+    border-radius: 5px;
+    width: 90px;
+    height: 30px;
+}
+table input[type="button"]{
+    background-color: gainsboro;
+    border: 0px;
+    border-radius: 5px;
+    width: 90px;
+    height: 25px;
+}

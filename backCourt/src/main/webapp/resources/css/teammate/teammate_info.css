@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+.flexBox{display:flex;margin-bottom:10px;}
+
+.teammateinfocont {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* div를 둥글게 만들기 */
+    background-color: lightgray; /* 배경색상 추가 */
+    padding: 20px;
+    margin: 50px 300px;
+}
+.teammateinfocont p:not(:last-child){margin-bottom:10px;}
+
+.logo {
+    width: 100px; /* 로고의 너비 조정 */
+    height: 100px; /* 로고의 높이 조정 */
+    margin-right: 20px;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 로고 이미지를 div에 꽉 차게 맞춤 */
+}
+
+.details {
+    flex-grow: 1;
+}
+
+.teamName {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.teamLeader,
+.teamAddress,
+.teammateLevel,
+.teammateGender,
+.teammatePositions {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.teammateJoinBtn{
+    display: block;
+    margin-right: 5px;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #ccc;
+    background-color: blue;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+a.teammateReportBtn{
+    display: inline-block;
+    background-color: red;
+    font-weight: bold;
+    color: #ccc;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    padding: 5%;
+    cursor: pointer;
+}
+
+.teamDescriptionBox {
+    display: inline-block;
+    width: 800px; /* 너비 조정 */
+    padding: 20px; /* 안쪽 여백 추가 */
+    border: 1px solid #ccc; /* 테두리 추가 */
+    border-radius: 10px; /* 테두리를 둥글게 만듭니다. */
+    margin: -250px 600px;
+}

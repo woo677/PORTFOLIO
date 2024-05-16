@@ -1,0 +1,177 @@
+@charset "UTF-8";
+
+.wrapper {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: lightgray;
+}
+
+.header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.header .img {
+    margin-right: 10px; /* 이미지와 텍스트 사이 간격 조정 */
+}
+
+.content-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: baseline;
+}
+
+.content {
+    display: inline-block;
+    padding: 5px;
+    width: 150px;
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+    margin-bottom : 20px
+    
+}
+
+.aa {
+    display: inline-block;
+}
+
+.find-button {
+    background: cornflowerblue;
+    border-radius: 8px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.radio-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: 10px;
+}
+
+
+.select {
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    width: 130px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+.radio-wrapper input[type="radio"] {
+    margin-right: 5px;
+}
+
+input[type="text"] {
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+    height: 30px;
+}
+
+.textarea {
+    width: 50%;
+    max-width: 50%;
+    min-width: 50%;
+    height: 300px;
+    resize: none;
+    font-size: 15px;
+    margin-left: 10px;
+}
+ 
+.radio-wrapper input[type="radio"],
+.radio-wrapper label {
+    margin-right: 5px;
+}
+
+.find-button,
+input[type="text"] {
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.submit {
+    text-align: right;
+    background-color: coral;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.img{
+    height: 46px;
+    width: auto;
+}
+
+.write{
+    text-align: center;
+}
+
+.update{
+	text-align: center;
+}
+
+#cancel{
+    background-color: gray;
+}
+
+#address{
+    background-color: #fff;
+}   
+
+#date{
+    background-color: #fff;
+}
+
+#courtname{
+	background-color: #fff;
+}
+
+.text{
+    width: 130%;
+
+}
+
+#courts .courtList {
+    margin-bottom: 30px; 
+}
+
+.courtList:hover {
+	background-color: lightgray;
+	cursor: pointer;
+}
+
+#court_booking_idx{
+	display: none;
+}
+
+/* 팝업 */
+.popup{display:none;position:absolute;top:calc(50% - 250px);left:calc(50% - 250px);z-index:20;background-color: rgba(255, 255, 255, 0.9);}
+.popup .closePopup{position:absolute;top:-50px;right:-50px;}
+.popup .closePopup img{width:50px;}
+
+.popup .popWrap{position:relative;width:500px;border:1px solid #010101;padding:30px;background:#fff;box-sizing:border-box;}
+.popup .popWrap h1{margin:10px 0 25px;font-size:25px;}
+
+.popup .popWrap .courts{overflow-y:scroll;height:500px;padding:0 10px;}
+.popup .popWrap .courts ul{background:gray;padding:20px;margin-bottom:10px;}

@@ -1,0 +1,38 @@
+table{
+    border: 1px solid black;
+    padding: 10px 10px;
+    right: 100%;
+}
+input{
+    width: 200px;
+    height: 30px;
+}
+h1{
+    display: inline;
+    padding: 0px 19px 0px 5px;
+}
+div{
+
+    position: fixed;
+    left: 43%;
+    top: 31%;
+    text-align: center;
+}
+.sub{
+    margin: 8px 0px 0px 0px;
+    border: 0px;
+    background-color: #d05405;
+    border-radius: 5px;
+    size: 10px;
+    width: 80px;
+    color: whitesmoke;
+}
+.button{
+    border: 0px;
+    background-color: rgba(255, 255, 255, 0.733);
+    text-decoration: underline;
+}
+.link{
+    text-decoration: none;
+    color: black;
+}

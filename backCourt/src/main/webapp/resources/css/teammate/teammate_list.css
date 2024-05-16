@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+
+
+.teammateTable table {
+    border-collapse: collapse; /* 테이블 셀의 경계를 합치고 경계를 중복해서 표시하지 않음 */
+}
+
+.teammateTable th,
+.teammateTable td {
+    border: 1px solid #ddd; /* 셀에 테두리를 추가 */
+    padding: 8px; /* 셀 안의 여백 조정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.teammateTable th{
+	background-color : grey;
+}
+
+.teammateDIV{
+	width: 1280px;
+	margin : 0 auto;
+}
+
+.address:hover {
+    background : skyblue;
+}

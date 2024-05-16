@@ -1,0 +1,107 @@
+/*  */
+html{}
+html.on{overflow:hidden;}
+body{overflow-x:hidden;}
+.curtain{display:none;position:absolute;top:0;left:0;z-index:10;width:100%;height:100vw;background:#000;opacity:.4;}
+.curtain.on{display:block;}
+a{color:blue;text-decoration:none;}
+img{width:100%;}
+
+/* 헤더 상단 */
+.header{width:100%;}
+.header .inner{width:1280px;margin:0 auto;}
+.header .top {display:flex;justify-content:space-between;align-items:center;height:180px;margin-bottom:10px;border-bottom:1px solid #000;}
+.header .top h1{width:100px;}
+.header .top h1 a{display:block;}
+
+/* 상단 메뉴 */
+.header .top .icoCont{display:flex;justify-content:space-between;align-items:center;}
+.header .top .icoCont li{position:relative;width:150px;text-align:center;}
+.header .top .icoCont li a{display:block;position:relative;}
+.header .top .icoCont li a .icon{display:block;width:100px;margin:0 auto;}
+.header .top .icoCont li a .txt{display:block;margin-top:12px;}
+.header .top .icoCont li a .num{display:none;position:absolute;top:0;right:0;background:red;width:50px;height:50px;font-size:30px;line-height:50px;border-radius:100%;}
+.header .top .icoCont li a .num.on{display:block;}
+.header .top .icoCont li .noticeBox{display:none;position:absolute;bottom:-430px;left:calc(50% - 420px);z-index:99;width:500px;height:400px;padding:10px;background:rgb(194, 191, 191);box-sizing:border-box;}
+.header .top .icoCont li .noticeBox.on{display:block;}
+.header .top .icoCont li .noticeBox:before{content: "";position:absolute;top:-50px;right:50px;width:0;height:0;border:30px solid rgb(194, 191, 191);border-top:30px solid rgba(0, 0, 0, 0);border-left:30px solid rgba(0, 0, 0, 0);border-right:30px solid rgba(0, 0, 0, 0);}
+.header .top .icoCont li .noticeBox .close{position:absolute;top:10px;right:10px;width:30px;}
+.header .top .icoCont li .noticeBox ul{overflow-y:scroll;height:300px;padding:10px;}
+.header .top .icoCont li .noticeBox h2{margin:10px 0;font-size:20px;font-weight:600;}
+.header .top .icoCont li .noticeBox .cont{width:100%;padding:10px;background:#fff;box-sizing:border-box;}
+.header .top .icoCont li .noticeBox .cont:not(:last-child){margin-bottom:10px;}
+.header .top .icoCont li .noticeBox .cont .date{margin-right:10px;text-align:right;}
+.header .top .icoCont li .noticeBox .cont .content{margin:10px 0;}
+.header .top .icoCont li .noticeBox .cont .btn{}
+
+/* 하단 메뉴 */
+.header .menu{display:none;line-height:60px;}
+.header .menu.on{display:flex;}
+.header .menu li{}
+.header .menu li:not(:first-child){margin-left:200px;}
+.header .menu li a{display:block;font-size:30px;}
+.header .menu li a.on{background:skyblue;font-weight:600;}
+
+/* 팀서비스 2depth */
+.teamDepth2{display:none;margin:30px 30px 30px 170px;}
+.teamDepth2.on{display:block;}
+.teamDepth2 a{display:inline-block;padding:10px 20px;border:none;background:none;font-size:30px;border-radius:25px;}
+.teamDepth2 a.on{background:blue;font-weight:600;color:#fff;}
+.teamDepth2 .teamJoin{margin-right:100px;}
+.teamDepth2 .guestJoin{}
+
+
+/* nav */
+.nav{display:block;position:absolute;top:0;right:-450px;z-index:99;height:100vw;}
+.nav.on{position:fixed;}
+.nav .close{position:absolute;top:0;left:-50px;width:50px;background:#cccaca;}
+.nav ul{width:400px;height:100%;background:#c9c7c7;box-sizing:border-box;}
+.nav ul .topCont{background:#999898;border-bottom:1px solid #000;}
+.nav ul .topCont .profile{display:flex;justify-content:space-between;align-items:center;padding:20px;}
+.nav ul .topCont .profile .nik{}
+.nav ul .topCont .profile .nik a{font-size:40px;}
+.nav ul .topCont .profile .photo{width:100px;}
+
+.nav ul .topCont .point{display:flex;justify-content:space-between;padding:20px;}
+.nav ul .topCont .point p{width:215px;font-size:30px;}
+.nav ul .topCont .point p span{float:right;}
+.nav ul .topCont .point button{margin:0 15px;cursor:pointer;}
+
+.nav ul .cont{border-bottom:1px solid #000;}
+.nav ul .cont{}
+.nav ul .cont a{display:block;padding:20px;}
+
+/* 팝업 */
+.popup{display:none;position:absolute;top:calc(50% - 250px);left:calc(50% - 250px);z-index:20;}
+.popup.on{display:block;}
+.popup .close{position:absolute;top:-50px;right:-50px;}
+.popup .close img{width:50px;}
+
+.popup .popWrap{position:relative;width:500px;border:1px solid #010101;padding:30px;background:#fff;box-sizing:border-box;}
+.popup .popWrap .btnTeam{display:block;position:absolute;top:28px;right:20px;font-size:20px;width:100px;line-height:50px;text-align:center;background:skyblue;}
+.popup .popWrap h1{margin:10px 0 25px;font-size:25px;}
+
+.popup .popWrap .listCont{overflow-y:scroll;height:500px;padding:0 10px;}
+.popup .popWrap .listCont ul{}
+.popup .popWrap .listCont ul li{background:gray;padding:20px;margin-bottom:10px;}
+.popup .popWrap .listCont ul li a{display:block;}
+.popup .popWrap .listCont ul li a .logo{display:inline-block;}
+.popup .popWrap .listCont ul li a .logo img{width:90px;}
+.popup .popWrap .listCont ul li a .teamNik{display: inline-block;float:right;line-height:1;color:#000;font-size:30px;}
+.popup .popWrap .listCont ul li a .teamNik img{}
+.popup .popWrap .listCont ul li.noTeam{background:#fff;margin:150px 0;text-align:center;font-size:30px;}
+
+
+/*  */
+
+/* 관리자 헤더 */
+.adminBody{display:flex;}
+.adminBody .adminContainer{margin-left:50px;}
+.adminHeader{height:100vh;}
+.adminHeader .headerCont{width:350px;height:100%;padding:20px;background:#e1e1e1;box-sizing:border-box;}
+.adminHeader .headerCont .logout{display:inline-block;padding:0 10px; line-height:60px;font-size:30px;background:blue;color:#fff;}
+.adminHeader .headerCont .menu{margin-top:150px;}
+.adminHeader .headerCont .menu li{margin:40px 0;}
+.adminHeader .headerCont .menu li a{display:block;font-size:40px;}
+.adminHeader .headerCont .menu li.on a{background:skyblue;}
+

@@ -1,0 +1,87 @@
+.match_ask_list{
+    /* border: 1px solid black; */
+	width: 1500px;
+    margin-left: 8%;
+    margin-top: 100px;
+    padding: 10px 200px 0px 50px;
+    font-size: 20px;
+}
+.report_list_thead{
+    /* border: 1px solid black; */
+    background-color: gainsboro;
+}
+.report_list{
+    text-align: center;
+    width: 800px;
+} 
+.report_list_th{
+    /* border: 1px solid black; */
+    width: 500px;
+    padding: 20px 10px;
+    font-size: 19px;
+    font-weight: 700;
+    text-align: center;
+}
+.title{
+    margin-bottom: 40px;
+    font-size: 20px;
+    
+}
+.button{
+    border: 0px;
+    background-color: gainsboro;
+    font-size: 20px;
+    margin-bottom: 40px;
+    margin-right: 10px;
+    font-weight: 500;
+    border-radius: 10%;
+    width: 70px;
+    height: 40px;
+}
+#report_del{
+    background-color: rgb(255, 94, 0);
+    border-radius: 10%;
+    color: white;
+}
+#report_modify{
+    background-color: rgb(24, 202, 0);
+    border-radius: 10%;
+    color: white;
+}
+.report_list_tbody{
+    border-bottom: 1px solid black;
+    padding: 1090px;
+}
+.report_list_td{
+    padding: 10px 0px;
+}
+.oficial_list_State{
+    border: 0px;
+}
+#match_list_Checking{
+background-color: rgb(60, 167, 255);
+width: 100px;
+height: 50px;
+font-weight: 700;
+color: white;
+border: 0px ;
+border-radius: 10px;
+}
+#match_list_Pr{
+background-color: orange;
+width: 100px;
+height: 50px;
+font-weight: 700;
+border: 0px ;
+border-radius: 10px;
+color: white;
+}
+#match_list_Yes{
+background-color: rgb(0, 255, 0);
+width: 100px;
+height: 50px;
+font-weight: 700;
+border: 0px ;
+border-radius: 10px;
+color: white;
+}

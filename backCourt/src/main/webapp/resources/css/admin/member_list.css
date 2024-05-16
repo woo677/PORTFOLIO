@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.adminCourtListTable{
+        border: 2px solid;
+        border-collapse: collapse;
+    }
+    .adminMemberListTh{
+        background-color: gainsboro;
+    }
+    .adminMemberListTh,.adminMemberListTd{
+        border: 2px solid;
+        padding: 20px 20px;
+        text-align: center;
+    }
+	.adminMemberListTr:hover {
+		background-color: lightgray;
+	}
+    #memberState {
+        position: absolute;
+        top: 40px;
+        right: 350px;
+        width: 100px; /* 옵션 크기 조절 */
+    }
+    
+    table{
+    margin-top : 80px;
+    }

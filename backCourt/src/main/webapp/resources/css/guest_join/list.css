@@ -1,0 +1,119 @@
+
+/* official - match_list */
+/**/
+.official.content{width:1280px;margin:0 auto;padding:30px 0;}
+
+/* 필터 */
+.filterCont{}
+.filterCont select{}
+.filterCont select option{}
+
+/* 테이블 */
+.table{margin:20px 0 50px;border:1px solid #000;}
+.table tr td,th{border:1px solid #000;line-height:50px;text-align:center;}
+.table table{width:100%;}
+.table tr{cursor: pointer;}
+.table tr th{background: lightgray;}
+.table tr td{}
+.table tr td a{display:block;color:blue;}
+
+.table tr .num{}
+.table tr .gameDate{}
+.table tr .address{}
+.table tr .address:hover{background:skyblue;}
+.table tr .level{}
+
+.table tr td span{}
+.table tr td .present{}
+.table tr td .Recruitment{}
+.table tr .state{background:greenyellow;}
+.table tr .state.finish{background:orangered;}
+
+.table tr.end .address:hover{background:#fff;}
+.table tr.end td a{cursor:inherit;}
+.table tr.end td a{position:relative;color:gray;text-decoration: none;}
+.table tr.end td a:before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:gray;opacity:.5;}
+
+/* 검색 */
+.searchBox{text-align:center;}
+.searchBox input{}
+.searchBox button{}
+
+
+
+/* official - match_info */
+/*  */
+.officialDetail{width:1280px;margin:0 auto;}
+
+/* court slide */
+.officialDetail .courtSlide{width:100%;padding:20px 0;}
+.officialDetail .courtSlide h1{margin-bottom:20px;font-size:40px;font-weight:600;}
+.officialDetail .courtSlide .mySwiper{width:100%;padding:40px 0;border:1px solid #000;}
+.officialDetail .courtSlide .mySwiper .swiper-wrapper{align-items:center;height:inherit;}
+.officialDetail .courtSlide .mySwiper .swiper-wrapper .swiper-slide{display:flex;justify-content:center;align-items:center;}
+.officialDetail .courtSlide .mySwiper .swiper-wrapper .swiper-slide img{display:block;width:1000px;}
+.officialDetail .courtSlide .mySwiper .swiper-button-next{}
+.officialDetail .courtSlide .mySwiper .swiper-button-prev{}
+.officialDetail .courtSlide .mySwiper .swiper-pagination{bottom:10px;}
+.swiper-pagination-clickable .swiper-pagination-bullet{width:20px;height:20px;}
+
+/* infoContainer - left */
+.officialDetail .infoContainer{display:flex;justify-content:space-between;}
+.officialDetail .infoContainer .leftContainer{width:65%;}
+.officialDetail .infoContainer .leftContainer .leftCont{padding:30px;background:rgb(212, 208, 208);border-radius:10px;}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01{margin-bottom:20px;font-size:25px;}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 li{position:relative;padding-left:30px;}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 li:not(:last-child){margin-bottom:30px;}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 li:before{content:"";position:absolute;top:5px;left:0;width:20px;height:20px;background:#000;border-radius:100%;}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 .dateCont{}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 .dateCont .date1{margin-right:20px;}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 .dateCont .date2{}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 .levelcont{}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 .levelcont .level{}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 .recruitmentCont{}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 .recruitmentCont .present{color:green;}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 .recruitmentCont .Recruitment{margin-right:20px;}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 .recruitmentCont .state{padding:10px 20px;background:darkcyan;border-radius:15px;}
+.officialDetail .infoContainer .leftContainer .leftCont.cont01 .recruitmentCont .state.finish{background:firebrick;}
+
+.officialDetail .infoContainer .leftContainer .leftCont.cont02{margin-bottom:20px;font-size:20px;line-height:1.3;}
+.officialDetail .infoContainer .leftContainer .leftCont.cont02 .infoCont{}
+
+.officialDetail .infoContainer .leftContainer .mapCont{width:500px;padding:30px;border:1px solid #000;}
+.officialDetail .infoContainer .leftContainer .mapCont h1{margin-bottom:20px;font-size:30px;}
+.officialDetail .infoContainer .leftContainer .mapCont a{display:block;margin-bottom:20px;font-size:23px;}
+.officialDetail .infoContainer .leftContainer .mapCont #map{width:400px;height:400px;}
+
+/* infoContainer - right */
+.officialDetail .infoContainer .rightCont{width:33%;}
+.officialDetail .infoContainer .rightCont .peeCont{padding:30px;background:rgb(212, 208, 208);border-radius:10px;}
+.officialDetail .infoContainer .rightCont .peeCont .tit{margin-bottom:50px;font-size:30px;}
+.officialDetail .infoContainer .rightCont .peeCont .txt{display:flex;justify-content:space-between;align-items:center;}
+.officialDetail .infoContainer .rightCont .peeCont .txt .pee{position:relative;padding-left:70px;font-size:30px;}
+.officialDetail .infoContainer .rightCont .peeCont .txt .pee:before{content:"";position:absolute;top:-8px;left:0;width:50px;height:50px;background:url("../../img/icon/money_ico.png");background-size:100%;}
+.officialDetail .infoContainer .rightCont .peeCont .txt .recoBtn{padding:10px 20px;background:yellowgreen;border:none;font-size:20px;cursor:pointer;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

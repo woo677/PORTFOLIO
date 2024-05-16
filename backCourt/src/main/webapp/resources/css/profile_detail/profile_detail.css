@@ -1,0 +1,48 @@
+.profile_detail_tr{
+    border: 1px solid black;
+}
+.profile_detail_th{
+    background-color: gainsboro;
+    text-align: center; 
+    padding: 5%;
+    width: 120px;
+}
+.profile_detail_td_input{
+    padding-left: 23px;
+}
+.profile_detail_td{
+    padding: 5%;
+}
+table{
+    border: 1px solid black;
+    width: 400px;
+    height: 500px;
+    margin-top: 40px;
+}
+.profile_detail_input{
+    width: 200px;
+    height: 30px;
+}
+.profile_detail_td_select{
+    padding-left: 23px;
+}
+.select{
+    width: 200px;
+}
+#profile_detail_div{
+    margin: 10%;
+}
+.NO{
+    padding: 10px 30px;
+    margin-top: 19px;
+    margin-left: 90px;
+    margin-right: 40px;
+    border: 0px;
+    border-radius: 10%;
+}
+.OK{
+    padding: 10px 30px;
+    border: 0px;
+    border-radius: 10%;
+    background-color: rgb(91, 181, 255);
+}

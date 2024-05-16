@@ -1,0 +1,142 @@
+
+img{width:100%;margin:0 auto;}
+
+/* 팀 페이지 */
+.teamInfoContainer{display:flex;justify-content:space-between;width:1280px;margin:0 auto;}
+
+/* leftCont */
+.teamInfoContainer .leftCont{width:30%;height:100vh;background:skyblue;}
+.teamInfoContainer .leftCont .teamInformation{padding:30px;text-align:center;}
+.teamInfoContainer .leftCont .teamInformation li{font-size:23px;line-height:1.3;}
+.teamInfoContainer .leftCont .teamInformation li:not(:last-child){margin-bottom:30px;}
+.teamInfoContainer .leftCont .teamInformation .logoImg{width:200px;height:200px;margin:0 auto;}
+.teamInfoContainer .leftCont .teamInformation li .createTeamBtn{margin-top:20px;padding:15px 20px;background:blue;border:none;font-size:25px;color:#fff;cursor:pointer;}
+.teamInfoContainer .leftCont .teamInformation li .dropTeamBtn{margin-top:20px;padding:15px 20px;background:blue;border:none;font-size:25px;color:#fff;cursor:pointer;}
+
+/* rightCont */
+.teamInfoContainer .rightCont{width:67%;}
+.teamInfoContainer .rightCont h1{margin-bottom:50px;font-size:40px;}
+
+/* tab menu */
+.teamInfoContainer .rightCont .teamTabMenu{display:none;}
+.teamInfoContainer .rightCont .teamTabMenu.on{display:block;}
+.teamInfoContainer .rightCont .teamTabMenu .cont{display:flex;margin-bottom:50px;}
+.teamInfoContainer .rightCont .teamTabMenu .cont li{background:lightgray;}
+.teamInfoContainer .rightCont .teamTabMenu .cont li.on{background:blue;}
+.teamInfoContainer .rightCont .teamTabMenu .cont li:not(:last-child){margin-right:20px;}
+.teamInfoContainer .rightCont .teamTabMenu .cont li a{display:block;padding:15px 20px;color:#fff;font-size:20px;}
+
+/* writeCont */
+.teamInfoContainer .rightCont .writeCont{display:none;float:right;margin-bottom:20px;}
+.teamInfoContainer .rightCont .writeCont.on{display:block;}
+.teamInfoContainer .rightCont .writeCont .cont{}
+.teamInfoContainer .rightCont .writeCont .cont button{display:inline-block;padding:5px 10px;font-size:20px;cursor:pointer;}
+.teamInfoContainer .rightCont .writeCont .cont button:first-child{margin-right:10px;}
+
+.teamInfoContainer .rightCont .tableList{display:block;}
+/* .teamInfoContainer .rightCont table.teamMember{display:none;}
+.teamInfoContainer .rightCont table.application{display:none;}
+.teamInfoContainer .rightCont table.writeList{display:none;}
+.teamInfoContainer .rightCont table.dropList{display:table;} */
+
+/* 공통 및 teamMember table */
+.teamInfoContainer .rightCont table{width:100%;border:1px solid #000;}
+.teamInfoContainer .rightCont table td,th{border:1px solid #000;}
+.teamInfoContainer .rightCont table tr{}
+.teamInfoContainer .rightCont table th{height:50px;line-height:50px;font-size:20px;background:lightgray;text-align:center;}
+.teamInfoContainer .rightCont table td{height:45px;line-height:45px;font-size:20px;text-align:center;}
+.teamInfoContainer .rightCont table td a{display:block;}
+.teamInfoContainer .rightCont table .no{}
+.teamInfoContainer .rightCont table .user{}
+.teamInfoContainer .rightCont table .rank{}
+.teamInfoContainer .rightCont table .position{}
+.teamInfoContainer .rightCont table .date{}
+.teamInfoContainer .rightCont table .drop{width:100px;}
+.teamInfoContainer .rightCont table td .dropBtn{padding:3px 10px;background:red;border:none;font-size:20px;cursor:pointer;line-height:1.3;}
+.teamInfoContainer .rightCont table tfoot .container{width:100% !important;}
+
+/* application table */
+.teamInfoContainer .rightCont table .request{width:200px;}
+.teamInfoContainer .rightCont table .request button{padding:3px 10px;margin:0 5px;border:none;font-size:20px;cursor:pointer;line-height:1.3;}
+.teamInfoContainer .rightCont table .request .requestBtnY{background:lightgreen;}
+.teamInfoContainer .rightCont table .request .requestBtnN{background:red;}
+
+/* writeList table */
+.teamInfoContainer .rightCont table .modifications{width:200px;}
+.teamInfoContainer .rightCont table .modifications button{padding:3px 10px;margin:0 5px;border:none;font-size:20px;cursor:pointer;line-height:1.3;}
+.teamInfoContainer .rightCont table .modifications .modifyBtn{background:lightgreen;}
+.teamInfoContainer .rightCont table .modifications .refusalBtn{background:red;}
+
+/* userPop */
+.userPop{display:none;position:absolute;top:calc(50% - 110px);left:calc(50% - 350px);z-index:99;}
+.userPop.on{display:block;}
+.userPop .close{position:absolute;top:-50px;right:-50px;width:50px;}
+.userPop .popWrap{}
+.userPop .popWrap .listCont{}
+.userPop .popWrap .listCont ul{width:700px;border:1px solid #000;background:#fff;box-sizing:border-box;}
+.userPop .popWrap .listCont ul li{font-size:30px;}
+.userPop .popWrap .listCont ul li:not(:last-child){border-bottom:1px solid lightgray;}
+.userPop .popWrap .listCont ul li p{display:inline-block;padding:20px;}
+.userPop .popWrap .listCont ul li .tit{width:150px;border-right:1px solid lightgray;background:#e1e1e1;}
+.userPop .popWrap .listCont ul li .txt{}
+
+/* 팀 만들기 */
+.createTeamContainer{width:1280px;margin:30px auto;}
+.createTeamContainer form{display:flex;justify-content:space-between;}
+
+/* leftCont */
+.createTeamContainer .leftCont{width:40%;text-align:center;}
+.createTeamContainer .leftCont .imgBox{width:250px;margin:0 auto;}
+.createTeamContainer .leftCont .imgBox img{}
+.createTeamContainer .leftCont .siteLogo{width:130px;padding:5px 10px;margin:20px 10px 0;background:lightgray;border:1px solid #000;cursor:pointer;font-size:15px;}
+.createTeamContainer .leftCont .inputFileButton{display:inline-block;width:130px;padding:8px 10px;background:lightgray;border:1px solid #000;cursor:pointer;}
+.createTeamContainer .leftCont .pcLogo{opacity:0;position:absolute;top:-999px;left:-999px;}
+
+/* rightCont */
+.createTeamContainer .rightCont{width:60%;}
+.createTeamContainer .rightCont p{margin-bottom:20px;}
+.createTeamContainer .rightCont p span{display:inline-block;width:120px;font-size:25px;vertical-align:top;}
+.createTeamContainer .rightCont p input[type="text"]{width:300px;height:25px;}
+.createTeamContainer .rightCont p .selectBox{width:130px;height:30px;font-size:20px;}
+.createTeamContainer .rightCont p label{font-size:25px;}
+.createTeamContainer .rightCont p .teamName{}
+.createTeamContainer .rightCont p .radio{width:20px;height:20px;margin-right:20px;}
+.createTeamContainer .rightCont p #description{width:300px;height:200px;resize:none;}
+.createTeamContainer .rightCont .btnWrap{width:400px;margin:0 auto;}
+.createTeamContainer .rightCont .btnWrap button{margin:0 10px;padding:5px 10px;font-size:20px;}
+.createTeamContainer .rightCont .btnWrap #cancle{}
+.createTeamContainer .rightCont .btnWrap #complete{background:lightblue;}
+
+/* logo 팝업 */
+.logoPop{display:none;position:absolute;top:calc(50% - 210px);left:calc(50% - 240px);z-index:99;}
+.logoPop.on{display:block;}
+.logoPop a{position:absolute;top:-50px;right:-50px;width:50px;}
+.logoPop .close{}
+.logoPop .popWrap{width:450px;height:600px;padding:20px 20px 60px;background:lightgray;box-sizing:border-box;}
+.logoPop .popWrap .logoCont{overflow-y:auto;height:500px;}
+.logoPop .popWrap .logoCont ul{display:flex;flex-wrap:wrap;}
+.logoPop .popWrap .logoCont ul li{width:110px;margin:0 10px;padding:10px;cursor:pointer;box-sizing:border-box;}
+.logoPop .popWrap .logoCont ul li.on{background:blue;}
+.logoPop .popWrap .logoCont ul li img{}
+.logoPop .popWrap .selectBtn{display:block;width:100px;height:35px;margin:20px auto;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

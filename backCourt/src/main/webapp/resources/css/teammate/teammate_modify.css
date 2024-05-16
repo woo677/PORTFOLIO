@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+.wrapper {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: lightgray;
+}
+
+.header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.header .img {
+    margin-right: 10px; /* 이미지와 텍스트 사이 간격 조정 */
+}
+
+.content-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: baseline;
+}
+
+.content {
+    display: inline-block;
+    padding: 5px;
+    width: 165px;
+    font-weight: bold;
+    vertical-align: top;
+    margin-bottom : 20px
+    
+}
+
+
+.radio-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: 10px;
+}
+
+
+.select {
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    width: 130px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+
+input[type="text"] {
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+    height: 30px;
+}
+
+.textarea {
+    width: 50%;
+    max-width: 50%;
+    min-width: 50%;
+    height: 300px;
+    resize: none;
+    font-size: 15px;
+    margin-left: 10px;
+}
+ 
+.radio-wrapper input[type="radio"],
+.radio-wrapper label {
+    margin-right: 5px;
+}
+
+
+.submit {
+    text-align: right;
+    background-color: coral;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.img{
+    height: 46px;
+    width: auto;
+}
+
+.write{
+    text-align: center;
+}
+
+#cancel{
+    background-color: gray;
+
+}
+
