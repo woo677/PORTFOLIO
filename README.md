@@ -19,6 +19,9 @@ backCourt_(팀프로젝트)
 	<tr>
 		<th>사용 언어</th>
 		<td>Java</td>
+		<td></td>
+		<td></td>
+		<td></td>
  	</tr>		
 </table>
 <br>
