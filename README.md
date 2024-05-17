@@ -5,7 +5,7 @@ backCourt_(팀프로젝트)
 참가 인원 : 5명
 <br>
 프로젝트에 사용된 툴
-<img src="https://www.w3.org/html/logo/badge/html5-badge-h-semantics.png" width="133" height="64" alt="HTML5 Powered with Semantics" title="HTML5 Powered with Semantics">
+<img src="https://www.w3.org/html/logo/badge/html5-badge-h-solo.png" width="10" height="10" alt="HTML5 Powered" title="HTML5 Powered">
 <table>
 	<tr>
 		<th>프론드 엔드</th>
