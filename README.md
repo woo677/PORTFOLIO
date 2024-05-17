@@ -1,9 +1,9 @@
 backCourt_(팀프로젝트)
-<br><br>
+<br/><br/>
 작업 기간 : 4월 10일 ~ 5월 10일
-<br><br>
+<br/><br/>
 참가 인원 : 5명
-<br><br>
+<br>/<br/>
 프로젝트에 사용된 툴
 <table>
 	<tr>
