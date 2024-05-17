@@ -6,9 +6,7 @@ backCourt_(팀프로젝트)
 <br>
 프로젝트에 사용된 툴
 <br>
-프론트엔드 : HTML5, CSS, js, jQuery
-<br>
-사용 언어 : Java
+프론트엔드 : HTML5, CSS, js, jQuery   사용 언어 : Java
 <br>
 프레임워크 : spring
 <br>
