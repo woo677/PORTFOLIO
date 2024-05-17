@@ -8,6 +8,10 @@ backCourt_(팀프로젝트)
 <table>
 	<tr>
 		<th>프론드 엔드</th>
+		<td>HTML5</td>
+		<td>CSS</td>
+		<td>js</td>
+		<td>jQuery</td>
  	</tr>
   <tr>
 	<td>${list.idx}</td>
