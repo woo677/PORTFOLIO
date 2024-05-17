@@ -5,6 +5,26 @@ backCourt_(팀프로젝트)
 참가 인원 : 5명
 <br>
 프로젝트에 사용된 툴
+<table>
+					<tr>
+						<td>${list.idx}</td>
+						<td>${list.subject}</td>
+						<td>${list.user_name}</td>
+						<td>${list.bHit}</td>
+					</tr>	
+                    <tr>
+						<td>${list.idx}</td>
+						<td>${list.subject}</td>
+						<td>${list.user_name}</td>
+						<td>${list.bHit}</td>
+					</tr>	
+                    <tr>
+						<td>${list.idx}</td>
+						<td>${list.subject}</td>
+						<td>${list.user_name}</td>
+						<td>${list.bHit}</td>
+					</tr>			
+			</table>
 <br>
 프론트엔드 : HTML5, CSS, js, jQuery   사용 언어 : Java
 <br>
