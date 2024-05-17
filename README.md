@@ -16,12 +16,10 @@ backCourt_(팀프로젝트)
 		<td>js</td>
 		<td>jQuery</td>
  	</tr>
-  <tr>
-	<td>${list.idx}</td>
-	<td>${list.subject}</td>
-	<td>${list.user_name}</td>
-	<td>${list.bHit}</td>
-  </tr>			
+	<tr>
+		<th>사용 언어</th>
+		<td>Java</td>
+ 	</tr>		
 </table>
 <br>
 프론트엔드 : HTML5, CSS, js, jQuery   사용 언어 : Java
