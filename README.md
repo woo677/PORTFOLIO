@@ -12,7 +12,9 @@ backCourt_(팀프로젝트)
 		  HTML5
 		  <img src="https://www.w3.org/html/logo/badge/html5-badge-h-solo.png" width="20" height="20" alt="HTML5 Powered" title="HTML5 Powered">
 		</td>
-		<td>CSS</td>
+		<td>CSS
+		  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg">
+		</td>
 		<td>js</td>
 		<td>jQuery</td>
  	</tr>
@@ -22,11 +24,22 @@ backCourt_(팀프로젝트)
 		<td></td>
 		<td></td>
 		<td></td>
+ 	</tr>	
+	<tr>
+		<th>프레임워크</th>
+		<td>spring</td>
+		<td></td>
+		<td></td>
+		<td></td>
+ 	</tr>		
+	<tr>
+		<th>사용 언어</th>
+		<td>Java</td>
+		<td></td>
+		<td></td>
+		<td></td>
  	</tr>		
 </table>
-<br>
-프론트엔드 : HTML5, CSS, js, jQuery   사용 언어 : Java
-<br>
 프레임워크 : spring
 <br>
 데이터베이스 : MariaDB
