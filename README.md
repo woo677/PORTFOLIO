@@ -1,9 +1,9 @@
 backCourt_(팀프로젝트)
-<br>
+<br><br>
 작업 기간 : 4월 10일 ~ 5월 10일
-<br>
+<br><br>
 참가 인원 : 5명
-<br>
+<br><br>
 프로젝트에 사용된 툴
 <table>
 	<tr>
@@ -33,17 +33,24 @@ backCourt_(팀프로젝트)
 		<td></td>
  	</tr>		
 	<tr>
-		<th>사용 언어</th>
-		<td>Java</td>
+		<th>데이터베이스</th>
+		<td>MariaDB</td>
 		<td></td>
 		<td></td>
 		<td></td>
- 	</tr>		
+ 	</tr>
+	<tr>
+		<th>버전 관리</th>
+		<td>GitHub</td>
+		<td></td>
+		<td></td>
+		<td></td>
+ 	</tr>
+	<tr>
+		<th>현상 관리</th>
+		<td>SourceTree</td>
+		<td></td>
+		<td></td>
+		<td></td>
+ 	</tr>
 </table>
-프레임워크 : spring
-<br>
-데이터베이스 : MariaDB
-<br>
-버전 관리 : GitHub
-<br>
-현상 관리 : SourceTree
